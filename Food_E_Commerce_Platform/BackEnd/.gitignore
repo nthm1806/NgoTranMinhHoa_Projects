@@ -1,0 +1,13 @@
+# Bỏ qua thư mục node_modules
+node_modules/
+
+# Bỏ qua tệp log
+*.log
+
+# Bỏ qua tệp tạm thời của hệ điều hành
+.DS_Store
+Thumbs.db
+
+# Bỏ qua tệp môi trường
+.env
+.exe
