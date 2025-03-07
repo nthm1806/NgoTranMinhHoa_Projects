@@ -1,0 +1,171 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 7vh;
+}
+
+.header {
+  font-weight: 3vw;
+  padding-top: 1vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85vw;
+  height: 7vh;
+}
+
+.header {
+  font-weight: 3vw;
+  padding-top: 1vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85vw;
+  min-height: 7vh;
+  flex-direction: row;
+}
+
+.fhs_mouse_point {
+  cursor: pointer;
+}
+
+.fhs_option_header {
+  width: 6%;
+}
+
+.fhs_option_header_span {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fhs_button_search_header {
+  position: absolute;
+  width: 10%;
+  height: 4vh;
+  right: 0.5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgb(255, 0, 0);
+  border-radius: 10px;
+}
+
+.fhs_center_space_header {
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 35vw;
+  padding-left: 1.8%;
+}
+
+.fhs_noti_header {
+  width: 26%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  cursor: pointer;
+  flex-direction: column;
+  margin-right: 1vw;
+
+  &:hover {
+    margin-bottom: 0.5vw;
+    background: rgb(226, 226, 230);
+  }
+}
+
+.avatar {
+  width: 4vw;
+  height: 3.5vh;
+  margin-top: 1vh;
+}
+
+.name {
+  font-size: 0.9vw;
+}
+
+.fhs_noti_icon_header {
+  width: 100%;
+  height: 3vh;
+  margin-top: 2%;
+}
+
+
+.fhs_language_header_second_bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.fhs_top_language {
+  cursor: pointer;
+  height: 5vh;
+  width: 3.5vw;
+  border: 1px solid #CDCFD0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding-left: 15%;
+}
+
+/* ============================ */
+/* Dark Mode */
+.dark {
+  background-color: #1e1e1e;
+  /* Nền tối cho header */
+  color: white;
+  /* Chữ sáng trong header */
+}
+
+
+.dark .fhs_top_menu_labe {
+  color: white;
+  /* Màu chữ sáng cho menu trong chế độ tối */
+}
+
+.dark .fhs_noti_header {
+  background-color: #1e1e1e;
+  /* Nền tối cho mỗi mục header */
+}
+
+.dark .fhs_noti_header:hover {
+  background-color: #444;
+  /* Nền khi hover trong chế độ tối */
+}
+
+.dark .fhs_noti_icon_header {
+  filter: brightness(0) invert(1);
+  /* Đảo màu cho biểu tượng trong chế độ tối */
+}
+
+.dark .avatar {
+  border: 2px solid #444;
+  /* Viền sáng cho avatar khi chế độ tối */
+}
+
+.dark .name {
+  color: #ccc;
+  /* Chữ sáng cho tên người dùng */
+}
+
+.dark .fhs_language_header_second_bar {
+  background-color: #222;
+  /* Nền tối cho phần ngôn ngữ */
+}
+
+.dark .fhs_top_language {
+  border: 1px solid #444;
+  /* Viền tối cho phần ngôn ngữ */
+}
+
+.dark .fhs_top_language img {
+  filter: brightness(0) invert(1);
+  /* Đảo màu cho hình ảnh trong chế độ tối */
+}
+
+.dark .wrapper {
+  background-color: #121212;
+  /* Nền tối cho phần wrapper */
+}

@@ -1,0 +1,247 @@
+.headerWrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  /* Căn giữa nội dung trong header */
+  align-items: center;
+}
+
+
+/* ============================ */
+/* Toàn bộ trang */
+.pageContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Search Banner */
+.searchBanner {
+  background-color: #f04e30;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 8px;
+}
+
+.searchBanner h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+/* ============================ */
+/* Search Results Container */
+.searchContainer {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+}
+
+/* Input trong Search */
+.searchContainer input {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: #333;
+  border-radius: 8px 0 0 8px;
+}
+
+/* Heading */
+.resultsContainer h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+/* Results List */
+.resultsList {
+  list-style: none;
+  padding: 0;
+}
+
+.resultsList li {
+  padding: 15px;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+
+.resultsList li:hover {
+  background: #f9f9f9;
+}
+
+.resultsList li strong {
+  color: #f04e30;
+}
+
+/* ============================ */
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination span {
+  padding: 8px 12px;
+  margin: 3px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination span.active {
+  background: #f04e30;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination span:hover {
+  background: #f4f4f4;
+}
+
+/* ============================ */
+/* Footer */
+.footer {
+  background-color: #f8f8f8;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  margin-top: auto;
+  border-top: 1px solid #ddd;
+}
+
+/* ============================ */
+/* Responsive Design */
+@media (max-width: 768px) {
+  .resultsContainer {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .resultsList li {
+    font-size: 14px;
+  }
+
+  .pagination span {
+    padding: 6px 10px;
+  }
+}
+
+
+/* ============================ */
+/* Dark Mode */
+.dark {
+  background-color: #121212;
+  color: white;
+}
+
+/* Search Banner */
+.dark .searchBanner {
+  background-color: #f04e30;
+  color: white;
+}
+
+.dark .searchBanner h1 {
+  color: white;
+}
+
+/* ============================ */
+/* Search Results Container */
+.dark .searchContainer {
+  background-color: #333;
+}
+
+.dark .searchContainer input {
+  background-color: #444;
+  color: white;
+  border: 1px solid #555;
+}
+
+.dark .searchContainer input:focus {
+  border: 1px solid #f04e30;
+}
+
+/* Heading */
+.dark .resultsContainer h2 {
+  color: #ccc;
+}
+
+/* Results List */
+.dark .resultsList li {
+  background-color: #222;
+  color: white;
+  border-bottom: 1px solid #444;
+}
+
+.dark .resultsList li:hover {
+  background: #333;
+}
+
+.dark .resultsList li strong {
+  color: #f04e30;
+}
+
+/* ============================ */
+/* Pagination */
+.dark .pagination span {
+  color: white;
+  background-color: #333;
+  border: 1px solid #555;
+}
+
+.dark .pagination span.active {
+  background: #f04e30;
+  color: white;
+  font-weight: bold;
+}
+
+.dark .pagination span:hover {
+  background: #444;
+}
+
+/* ============================ */
+/* Footer */
+.dark .footer {
+  background-color: #181818;
+  color: white;
+}
+
+.dark .footer a {
+  color: white;
+}
+
+.dark .footer a:hover {
+  color: #f04e30;
+}
+
+/* ============================ */
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dark .resultsContainer {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  .dark .resultsList li {
+    font-size: 14px;
+  }
+
+  .dark .pagination span {
+    padding: 6px 10px;
+  }
+}

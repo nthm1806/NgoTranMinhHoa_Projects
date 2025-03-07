@@ -1,0 +1,249 @@
+.Order{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f1f1f1;
+}
+.link{
+    width: 82%;
+    color: orange;
+    a{
+        text-decoration: none;
+        color: orange;
+        cursor: pointer;
+    }
+}
+.address{
+    width: 82%;
+    background-color: white;
+    margin:10px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.address img{
+    height: 21px;
+    padding-right: 10px;
+}
+.OrderDetail{
+    width: 100%; 
+    text-align: left;
+    box-sizing: border-box;
+    
+}
+.OrderDetail table{
+    width: 100%;
+}
+.OrderDetail th{
+    font-weight: 400;
+    font-size: large;
+}
+.tdFirst{
+    display: flex;
+    padding-right: 10px;
+    p{
+        padding-left: 20px;
+        display: block;
+    }
+    span{
+        color: #757575;
+    }
+}
+.t1{
+    width: 50%;
+}
+.t2{
+    width: 15%;
+}
+.t3{
+    width: 10%;
+    text-align: end;
+}
+.t4{
+    width: 20%;
+    text-align: end;
+}
+.t5{
+    width: 20%;
+    text-align: end;
+}
+.product{
+    margin-bottom: 20px;
+    background-color: white;
+    padding:10px 20px;
+    table{
+        border-bottom:2px solid rgb(175, 175, 175) ;
+    }
+    
+}
+.shopVoucher{
+    display: flex;
+    div{
+        width: 50%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px 0;
+    }
+    button{
+        border: none;
+        outline: none;
+        background-color: white;
+        color: #7c7c7c;
+        font-size: large;
+        cursor: pointer;
+    }
+}
+.content{
+    width: 67%;
+    
+  }
+.tdFirst img{
+    height: 7.5vh;
+    width: 7.5vh;
+}
+.ship span{
+    position: absolute;
+    left: 100%;
+    transform: translateX(-100%);
+}
+.VoucherandTotal{
+    width: 100%;
+    background-color: white;
+    padding:20px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    h2{
+        margin: 0;
+    }
+    img{
+        height: 5vh;
+        padding-right: 10px;
+    }
+    button{
+        border: none;
+        outline: none;
+        background-color: white;
+        color: #7c7c7c;
+        font-size: large;
+        cursor: pointer;
+    }
+    select{
+        height:5vh;
+        width: 70%;
+        border: 2px solid rgb(175, 175, 175);
+    }
+}
+
+.voucherPopup{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(128, 127, 127, 0.219);
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.voucherInner{
+    width: 25vw;
+    height: 60vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding:20px;
+    background-color: white;
+}
+.voucherInner h1{
+    font-weight: 400;
+    margin: 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgb(221, 221, 221) ;
+}
+.VoucherDetail{
+    width: 25vw;
+    height: 10vh;
+    padding:10px;
+    margin:10px 0;
+    box-sizing: border-box;
+    display: flex;
+    cursor: pointer;
+    border-top: 2px solid rgb(131, 131, 131);
+}
+.inforVoucher{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center ;
+    p{
+        margin: 0;
+    }
+}
+.VoucherImg{
+    background-color: orange;
+    width: 30%;
+    height: 100%;
+    margin-right: 20px;
+    border-radius: 3px;
+    p{
+        text-align: center;
+    }
+}
+.pageControll{
+    height: 30px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: end;
+    span{
+        font-size: 20px;
+        cursor: pointer;
+        height: 30px;
+    }
+}
+.indexList{
+    height: 100%;
+    width: 30px;
+    text-align: center;
+    margin: 0 5px;
+    background-color: #757575;
+}
+.choosePage{
+    background-color: rgb(255, 123, 0);
+    color: white;
+}
+.hidden{
+    display: none;
+}
+.favorite{
+    width: 30%;
+    background-color: white;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
+  .favoriteItem{
+    padding:10px 0;
+    border-bottom: 1px solid rgb(179, 179, 179);
+    width: 100%;
+    height: 15vh;
+    margin-bottom: 20px;
+    display: flex;
+    img{
+      height:15vh;
+      width: 15vh;
+      padding-right:20px
+    }
+    div{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    p{
+      margin: 0;
+      display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    }
+  }

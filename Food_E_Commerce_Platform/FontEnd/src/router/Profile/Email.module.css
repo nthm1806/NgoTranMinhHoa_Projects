@@ -1,0 +1,98 @@
+/* Dark Mode tự động theo hệ thống */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+    .emailContainer {
+        background: #1e1e1e;
+        border: 1px solid #444;
+    }
+    .inputField {
+        background: #2a2a2a;
+        color: #fff;
+        border: 1px solid #555;
+    }
+}
+
+/* Container chung */
+.emailContainer {
+    max-width: 700px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Dark Mode */
+.dark {
+    background: #1e1e1e;
+    border: 1px solid #444;
+    color: #ffffff;
+}
+
+/* Form chỉnh sửa email */
+.editEmail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Ô input */
+.inputField {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: border 0.3s ease-in-out;
+}
+
+.inputField:focus {
+    border-color: #ff9800;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 152, 0, 0.5);
+}
+
+/* Dark Mode cho input */
+.dark .inputField {
+    background: #2a2a2a;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* Text báo lỗi */
+.errorText {
+    color: #ff0000;
+    font-size: 14px;
+}
+
+/* Các nút bấm */
+.saveButton, .cancelButton, .editButton {
+    padding: 10px 14px;
+    border: 2px solid #ff8a65;  /* Viền cam */
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: white;
+    color: #ff8a65;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover đổi màu */
+.saveButton:hover, .cancelButton:hover, .editButton:hover {
+    background-color: #ff8a65;
+    color: white;
+}
+
+/* Dark Mode cho nút */
+.dark .saveButton, .dark .cancelButton, .dark .editButton {
+    background-color: #2a2a2a;
+    color: #ff8a65;
+}
+
+.dark .saveButton:hover, .dark .cancelButton:hover, .dark .editButton:hover {
+    background-color: #ff8a65;
+    color: white;
+}

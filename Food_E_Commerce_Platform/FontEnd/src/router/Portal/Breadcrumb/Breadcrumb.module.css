@@ -1,0 +1,35 @@
+/* Breadcrumb Navigation */
+.breadcrumb {
+    font-size: 14px;
+    padding: 5px 0;
+    /* Giảm padding trên dưới */
+    margin-bottom: 3px;
+    /* Giảm khoảng cách dưới */
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    /* Giảm khoảng cách giữa các phần tử */
+}
+
+/* Giảm khoảng cách giữa các liên kết breadcrumb */
+.breadcrumb span {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    /* Giảm khoảng cách giữa các dấu ">" và link */
+}
+
+.breadcrumbLink {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s;
+    font-size: 14px;
+    /* Có thể giảm font size nếu cần */
+}
+
+.breadcrumbLink:hover {
+    color: #f04e30;
+    text-decoration: underline;
+}

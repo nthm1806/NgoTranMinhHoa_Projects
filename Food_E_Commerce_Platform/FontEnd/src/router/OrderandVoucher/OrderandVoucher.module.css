@@ -1,0 +1,43 @@
+.content{
+    background-color: rgb(228, 228, 228);
+    width: 100vw;
+    padding:10px 0;
+    display: flex;
+    justify-content: center;
+}
+.innerContent{
+    width: 82vw;
+    display: flex;
+    gap:5%;
+}
+.index{
+    width:auto;
+    white-space: nowrap;
+}
+.indexIntro{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img{
+        width: 75px;
+        height:75px;  
+        margin-right: 20px;  
+    }
+}
+.function{
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    cursor: pointer;
+    img{
+        width: 25px;
+        height:25px;
+        margin-right: 20px;
+    }
+}
+.function:hover{
+    color:orange
+}
+.choose{
+    color:orange;
+}   

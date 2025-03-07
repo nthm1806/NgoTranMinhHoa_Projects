@@ -1,0 +1,88 @@
+.headerWrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    /* Căn giữa nội dung trong header */
+    align-items: center;
+}
+
+.historyContainer {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.historyTitle {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.historySearch {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.requestList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.requestItem {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+}
+
+.requestItem .requestStatus {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.statusPending {
+    color: #e0a800;
+}
+
+.statusInProgress {
+    color: #007bff;
+}
+
+.statusResolved {
+    color: #28a745;
+}
+
+.requestTime {
+    font-size: 12px;
+    color: gray;
+}
+
+/* ============================ */
+/* Breadcrumb - Dịch sang phải chính xác hơn */
+.breadcrumb {
+    font-size: 14px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: flex-start;
+    /* Đảm bảo nó vẫn bám theo layout */
+    width: 90%;
+    max-width: 1200px;
+    margin-left: 200px;
+    /* Dịch sang phải bằng khoảng cách mong muốn */
+}

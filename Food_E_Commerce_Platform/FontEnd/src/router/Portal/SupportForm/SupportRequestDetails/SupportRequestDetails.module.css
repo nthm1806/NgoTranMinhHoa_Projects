@@ -1,0 +1,84 @@
+/* Container chính của chi tiết yêu cầu hỗ trợ */
+.detailsContainer {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề chính */
+.detailsTitle {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Khu vực thông tin chi tiết */
+.requestDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Nhãn (Label) */
+.requestDetails label {
+    font-weight: bold;
+}
+
+/* Input & Textarea */
+.requestDetails input,
+.requestDetails textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    transition: border 0.3s ease;
+    cursor: not-allowed;
+}
+
+/* Làm input trông giống như disable */
+.requestDetails input:disabled,
+.requestDetails textarea:disabled {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+}
+
+/* Nút quay lại */
+.backButton {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-align: center;
+    width: 100%;
+}
+
+.backButton:hover {
+    background-color: #0056b3;
+}
+
+/* Trạng thái yêu cầu */
+.statusPending {
+    color: orange;
+    font-weight: bold;
+}
+
+.statusInProgress {
+    color: blue;
+    font-weight: bold;
+}
+
+.statusResolved {
+    color: green;
+    font-weight: bold;
+}

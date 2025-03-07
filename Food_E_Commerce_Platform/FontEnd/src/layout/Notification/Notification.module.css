@@ -1,0 +1,144 @@
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 85vw;
+    background: white;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.sideBar{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    width: 25vw;
+    height: auto;
+    background: rgb(240, 236, 236);
+}
+
+.profile{
+    margin-left: 1vw;
+    font-size: medium;
+    font-weight: 800;
+    margin-top: 0.6vw;
+}
+
+.avatar{
+    width: 6vw;
+    height: 9vh;
+}
+
+.edit_profile{
+    margin-left: 1vw;
+    font-size: medium;
+    font-weight: 10;
+    cursor: pointer;
+
+    &:hover{
+        color: red;
+    }
+}
+
+.block_items{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.items{
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    font-size: medium;
+    font-weight: 600;
+    width: auto;
+    height: auto;
+    margin-top: 0.5vw;
+    margin-bottom: 1vw;
+    cursor: pointer;
+    
+
+    &:hover{
+        color: blue;
+    }
+}
+
+.block_itemNoti{
+    display: flex;
+    flex-direction: column;
+}
+
+.block_itemNoti li {
+    font-size: 1em; /* Tăng kích thước nếu cần */
+    margin-bottom: 0.5vw;
+}
+
+.itemNoti{
+    display: flex;
+    cursor: pointer;
+
+    &:hover{
+        color: orange;
+    }
+}
+
+.active{
+    color: orange;
+    text-decoration: underline;
+}
+
+.block_show_noti{
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+}
+
+.check_status_noti{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding-right: 3vw;
+    height: 6vh;
+    border-bottom: 1.5px solid rgb(240, 236, 236);
+}
+
+.img_noti{
+    width: 7vw;
+    height: 7vw;
+}
+
+
+.show_noti_item{
+    display: flex;
+    margin-bottom: 0.5vw;
+}
+
+.focus{
+    display: flex;
+    width: 100%;
+    &:hover{
+        background-color: rgb(227, 223, 223);
+    }
+}
+
+.unread{
+    background: rgb(245, 204, 181);
+}
+
+.highlight {
+    font-weight: bold;
+    color: #0a5cea; 
+    padding: 0 0.4vw;
+}
+
+.button_detail{
+    position: absolute;
+    right: 8vw;
+    justify-content: center;
+    align-items: center;
+
+    &:hover{
+        background-color: red;
+    }
+}

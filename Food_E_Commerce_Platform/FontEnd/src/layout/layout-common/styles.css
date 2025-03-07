@@ -1,0 +1,19 @@
+.container-layout{
+    width: 100vw;
+    height: auto;
+    background-color: #f2f2f2;
+}
+
+.header-layout{
+    position: fixed;
+    width: 100vw;
+    height: 86px;
+    z-index: 999;
+    background-color: white;
+
+}
+
+.body-layout{
+    padding-top: 75px;
+    padding-bottom: 100px;
+}

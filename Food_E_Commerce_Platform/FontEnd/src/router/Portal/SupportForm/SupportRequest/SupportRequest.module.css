@@ -1,0 +1,101 @@
+/* Container chính của form hỗ trợ */
+.supportContainer {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.supportTitle {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Form hỗ trợ */
+.supportForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Label cho các trường */
+.supportForm label {
+    font-weight: bold;
+}
+
+/* Input và Select */
+.supportForm input,
+.supportForm select,
+.supportForm textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border 0.3s ease;
+}
+
+.supportForm input:focus,
+.supportForm select:focus,
+.supportForm textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Nút Gửi Yêu Cầu */
+.supportForm button {
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.supportForm button:hover {
+    background-color: #0056b3;
+}
+
+/* Thông báo trạng thái */
+.supportMessage {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.successMessage {
+    color: green;
+    background-color: #e6f9e6;
+    border: 1px solid green;
+}
+
+.errorMessage {
+    color: red;
+    background-color: #fde2e2;
+    border: 1px solid red;
+}
+
+/* ============================ */
+/* Breadcrumb - Dịch sang phải chính xác hơn */
+.breadcrumb {
+    font-size: 14px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: flex-start;
+    /* Đảm bảo nó vẫn bám theo layout */
+    width: 90%;
+    max-width: 1200px;
+    margin-left: 200px;
+    /* Dịch sang phải bằng khoảng cách mong muốn */
+}

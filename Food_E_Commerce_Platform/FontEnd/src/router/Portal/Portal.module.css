@@ -1,0 +1,438 @@
+.headerWrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 0;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  /* Căn giữa nội dung trong header */
+  align-items: center;
+}
+
+/* ============================ */
+/* Global container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ============================ */
+/* Search Banner */
+.searchBanner {
+  background-color: #f04e30;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+  border-radius: 8px;
+}
+
+.searchBanner h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+/* ============================ */
+/* Category Grid */
+.content {
+  margin-top: 20px;
+}
+
+.content h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Hiển thị 3 cột */
+  grid-template-rows: repeat(3, auto);
+  /* Hiển thị 3 hàng */
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Category Item */
+.categoryItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  color: black;
+}
+
+.categoryItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.categoryItem img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.categoryItem span {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* ============================ */
+/* Sidebar + Content Layout */
+.mainContainer {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.sidebar {
+  width: 300px;
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active {
+  background-color: #f04e30;
+  color: white;
+}
+
+/* Content Area */
+.contentArea {
+  flex: 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.contentArea h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* ============================ */
+/* Search Dropdown */
+.searchContainer {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchContainer input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.searchContainer button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f04e30;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.suggestions {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  width: 100%;
+  border-radius: 5px;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.suggestions li:hover {
+  background: #f4f4f4;
+}
+
+/* ============================ */
+/* Search Results Page */
+.resultsContainer {
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.resultsContainer h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.resultsList {
+  list-style: none;
+  padding: 0;
+}
+
+.resultsList li {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.resultsList li strong {
+  color: #f04e30;
+}
+
+/* ============================ */
+/* Câu hỏi trong FAQ - Hiệu ứng hover màu xám nhạt */
+.faqItem {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #f3f3f3;
+  /* Viền mỏng màu xám nhạt */
+  background-color: #fcfcfc;
+  /* Màu nền rất nhẹ */
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+/* Hover - Thêm màu xám nhạt */
+.faqItem:hover {
+  background-color: #f5f5f5;
+  /* Màu xám nhạt khi di chuột vào */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+  /* Hiệu ứng nổi nhẹ */
+}
+
+.faqWrapper {
+  width: 50%;
+  /* Đảm bảo cân đối với danh mục */
+  padding-left: 0px;
+  /* Đưa sát về bên trái */
+  border-left: 3px solid #ddd;
+  /* Thêm đường viền lệch về trái */
+  padding-left: 15px;
+  /* Giữ khoảng cách giữa border và nội dung */
+  text-align: left;
+  /* Đảm bảo nội dung FAQ căn trái */
+}
+
+.supportLinks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Hiển thị 2 cột */
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 10px;
+}
+
+.supportLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #f3f3f3;
+  background-color: #fcfcfc;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+  text-align: center;
+}
+
+.supportLink:hover {
+  background-color: white;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Styles */
+.dark .supportLink {
+  background-color: #333;
+  color: white;
+  border: 1px solid #444;
+}
+
+.dark .supportLink:hover {
+  background-color: #444;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================ */
+/* Breadcrumb Navigation */
+.breadcrumb {
+  font-size: 14px;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.breadcrumbLink {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.breadcrumbLink:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* ============================ */
+/* Dark Mode */
+.dark {
+  background-color: #1e1e1e;
+  /* Nền tối cho toàn bộ trang */
+  color: white;
+  /* Văn bản sáng */
+}
+
+.dark .headerWrapper {
+  background-color: #1e1e1e;
+}
+
+/* ============================ */
+/* Dark Mode Search Banner */
+.dark .searchBanner {
+  background-color: #222; 
+  color: white;
+}
+
+.dark .searchBanner h1 {
+  color: white; 
+}
+
+/* ============================ */
+/* Dark Mode Category Grid */
+.dark .categoryItem {
+  background-color: #222; 
+  color: white; 
+}
+
+.dark .categoryItem:hover {
+  background-color: #333; 
+}
+
+.dark .categoryItem img {
+  filter: brightness(0) invert(1);
+}
+
+.dark .categoryItem span {
+  color: white; 
+}
+
+/* ============================ */
+/* Dark Mode for Search Results */
+.dark .resultsContainer h2 {
+  color: #ccc; 
+}
+
+.dark .resultsList li {
+  background-color: #333; 
+  color: white;
+  border-bottom: 1px solid #444; 
+}
+
+.dark .resultsList li:hover {
+  background: #444;
+}
+
+.dark .resultsList li strong {
+  color: #f04e30;
+}
+
+/* ============================ */
+/* Dark Mode for Sidebar */
+.dark .sidebar {
+  background-color: #222;
+  color: white;
+  border-right: 1px solid #444;
+}
+
+.dark .sidebar ul li {
+  color: white; 
+}
+
+.dark .sidebar ul li:hover,
+.dark .sidebar ul li.active {
+  background-color: #333;
+  color: white;
+}
+
+/* ============================ */
+/* Dark Mode for Footer */
+.dark .footer {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.dark .footer a {
+  color: white;
+}
+
+.dark .footer a:hover {
+  color: #f04e30;
+}
+
+/* ============================ */
+/* Dark Mode for FAQ */
+.dark .faqItem {
+  background-color: #333; 
+  color: white; 
+  border: 1px solid #444;
+}
+
+.dark .faqItem:hover {
+  background-color: #444; 
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.dark .faqWrapper {
+  width: 50%;
+  padding-left: 15px;
+  border-left: 3px solid #444;
+  text-align: left;
+  color: white; 
+}

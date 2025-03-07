@@ -1,0 +1,52 @@
+.container-list{
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+.list-product{
+    width: 80vw;
+    height: auto;
+    padding-bottom: 24px;
+}
+
+.side-bar-search{
+    width: 250px;
+}
+.side-bar-search, .menu-side-bar-search{
+    background-color: white;
+    border-radius: 10px;
+    
+}
+.menu-side-bar-search >  .ant-menu-item:hover, .menu-side-bar-search >  li:hover, .menu-side-bar-search >  li ul li:hover{
+    text-decoration: none !important
+
+}
+.menu-side-bar-search >  .ant-menu-item, .ant-menu > .ant-menu-submenu-selected>.ant-menu-submenu-title, .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-submenu-title{
+    color: gray !important;
+}
+
+.menu-side-bar-search > .ant-menu-item-selected, .ant-menu-submenu > .ant-menu-item-selected, .ant-menu-dark .ant-menu-item-selected{
+    color: white;
+}
+
+.menu-side-bar-search > .ant-menu-item:hover{
+    color: black !important;
+}
+
+.menu-side-bar-search > .ant-menu-item-selected, .ant-menu-dark .ant-menu-item-selected {
+    background-color: rgb(7 89 133 / var(--tw-bg-opacity, 1));
+    color: white !important;
+}
+
+.menu-side-bar-search > .ant-menu-item-selected:hover, .ant-menu-dark .ant-menu-item-selected:hover {
+    background-color: rgb(3 105 161 / var(--tw-bg-opacity, 1));
+    color: white !important;
+}
+
+.ant-menu.ant-menu-inline .ant-menu-sub.ant-menu-inline{
+    background-color: white !important;
+}

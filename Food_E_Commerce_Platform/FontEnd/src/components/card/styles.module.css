@@ -1,0 +1,111 @@
+.card_container {
+    width: 15rem;
+    height: 20rem;
+    --tw-bg-opacity: 1;
+    background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-radius: 1rem
+}
+
+.card_imageContainer {
+    height: 12rem;
+    border-radius: 0.75rem
+}
+
+.card_image {
+    height: 12rem;
+    width: 15rem;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    cursor: pointer;
+}
+
+.card_info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+.card_infoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start
+}
+
+.card_infoTitle {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.card_infoTitleName {
+    font-size: 0.875rem
+        /* 14px */
+    ;
+    line-height: 1.25rem
+        /* 20px */
+    ;
+    font-weight: 700;
+    cursor: pointer;
+
+}
+
+.card_infoQuantity {
+    font-size: 0.75rem
+        /* 12px */
+    ;
+    line-height: 1rem
+        /* 16px */
+    ;
+    --tw-text-opacity: 1;
+    color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+}
+
+.card_infoMoney {
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(220 38 38 / var(--tw-text-opacity, 1));
+}
+
+.card_button {
+    --tw-bg-opacity: 1;
+    background-color: rgb(3 105 161 / var(--tw-bg-opacity, 1));
+    --tw-text-opacity: 1;
+    color: rgb(249 250 251 / var(--tw-text-opacity, 1));
+    --tw-bg-opacity: 1;
+    background-color: rgb(7 89 133 / var(--tw-bg-opacity, 1));
+    padding-top: 0.5rem
+        /* 8px */
+    ;
+    padding-bottom: 0.5rem
+        /* 8px */
+    ;
+    border-radius: 0.375rem;
+    border-color: 1px solid rgb(3 105 161 / var(--tw-bg-opacity, 1));
+
+}
+
+
+.card_button:hover {
+    border-color: 1px solid rgb(3 105 161 / var(--tw-bg-opacity, 1));
+    background-color: rgb(3 105 161 / var(--tw-bg-opacity, 1))
+}
+
+.card_infoRight {
+    display: flex;
+    justify-content: end;
+    text-align: end;
+    flex-direction: column;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
+.card_infoRight_favorite {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -1,0 +1,75 @@
+.footer_wrapper{
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer_container_first{
+    width: 100vw;
+    height: 5vh;
+    background: white;
+}
+
+.footer_container_second{
+    padding: 2vh 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vh ;
+    font-weight: bold;
+}
+
+.footer_container_third{
+    padding: 2vh 0;
+    display: flex;
+    width: 85vw;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 2vh;
+}
+
+.footer_container_third img{
+    width: 10vw;
+    height: auto;
+}
+
+.footer_block_middle{
+    padding: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:38vh;
+    width: 100vw;
+    background: white;
+}
+
+li{
+    color: rgb(28, 122, 180);
+    padding: 0.2vw 0;
+    list-style: none;
+    font-size: small;
+    font-weight: 400;
+    &:hover{
+        cursor: pointer;
+        text-decoration: underline;
+        color: black;
+    }
+}
+
+.bocongthuong_img{
+    width: 28vh;
+    cursor: pointer;
+}
+
+.footer_block_end{
+    display: flex;
+    padding: 2vh 0;
+    width: 100vw;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+

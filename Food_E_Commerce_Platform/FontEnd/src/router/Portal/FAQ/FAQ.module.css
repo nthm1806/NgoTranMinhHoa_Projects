@@ -1,0 +1,131 @@
+/* Câu hỏi thường gặp - Căn chỉnh giao diện */
+.faqContainer {
+    max-width: 900px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+/* Điều chỉnh danh sách câu hỏi */
+/* ============================ */
+/* FAQ Container */
+.faqContainer {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.faqContainer h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* ============================ */
+/* FAQ List */
+.faqList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Hiển thị 2 cột */
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Từng phần tử câu hỏi */
+/* FAQ Item */
+.faqItem {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Màu chữ đen */
+/* Khi chọn câu hỏi */
+.faqItem:last-child {
+    border-bottom: none;
+}
+
+/* Kiểu dáng câu hỏi */
+.faqQuestion {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000 !important;
+    /* Đặt màu chữ thành đen */
+    transition: color 0.2s ease-in-out;
+}
+
+/* Khi hover vào câu hỏi */
+.faqItem:hover {
+    background-color: #f5f5f5;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Câu trả lời */
+/* Hover câu hỏi */
+.faqQuestion:hover {
+    color: #ff5a00;
+}
+
+/* Khi mở câu trả lời */
+.faqAnswer {
+    font-size: 14px;
+    padding-top: 10px;
+    color: #000 !important;
+    /* Đặt màu chữ đen */
+    display: none;
+}
+
+/* Khi câu hỏi được mở */
+.faqItem.active .faqAnswer {
+    display: block;
+}
+
+/* Chế độ tối */
+.dark {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.darkText {
+    color: #ccc;
+}
+
+.dark .faqContainer {
+    background-color: #181818;
+}
+
+.dark .faqItem {
+    border-bottom: 1px solid #444;
+}
+
+.dark .faqQuestion {
+    color: #ccc;
+}
+
+.dark .faqItem.active .faqQuestion {
+    font-weight: bold;
+}
+
+.dark .faqQuestion:hover {
+    color: #ff5a00;
+}
+
+.dark .faqAnswer {
+    color: #bbb;
+}
+
+.dark .faqItem.active .faqAnswer {
+    display: block;
+}
+
+.dark .faqItem:hover {
+    background-color: #333;
+}
+
+.dark .faqItem.active {
+    background-color: #444;
+}

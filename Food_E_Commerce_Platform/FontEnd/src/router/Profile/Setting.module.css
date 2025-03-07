@@ -1,0 +1,130 @@
+.settingContainer {
+    width: 50%;
+    margin: 20px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    min-width: 135vh;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: 50px;
+}
+
+/* Dark Mode cho settingContainer */
+.darkContainer {
+    background: #2c2c2c;
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.settingSection {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    transition: border-color 0.3s;
+}
+
+/* Dark Mode cho settingSection */
+.darkContainer .settingSection {
+    border-bottom: 1px solid #555;
+}
+
+.settingTitle {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Dark Mode cho settingTitle */
+.darkContainer .settingTitle {
+    color: #ff0000;
+}
+
+.settingDescription {
+    font-size: 16px;
+    color: gray;
+    margin-bottom: 15px;
+}
+
+/* Dark Mode cho settingDescription */
+.darkContainer .settingDescription {
+    color: #cccccc;
+}
+
+.settingItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    padding: 10px 0;
+}
+
+.settingLabel {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Dark Mode cho settingLabel */
+.darkContainer .settingLabel {
+    color: white;
+}
+
+/* Toggle Switch */
+.toggleSwitch {
+    position: relative;
+    display: inline-block;
+    width: 68px;
+    height: 25px;
+}
+
+.toggleSwitch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: 0.4s;
+}
+
+/* Dark Mode cho Slider */
+.darkSlider {
+    background-color: #555;
+}
+
+/* Dark Mode khi checked */
+.darkSlider:before {
+    background-color: #ddd;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+/* Dark Mode cho checked */
+.darkSlider input:checked + .slider {
+    background-color: #4caf50;
+}

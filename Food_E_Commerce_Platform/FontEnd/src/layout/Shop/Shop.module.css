@@ -1,0 +1,159 @@
+.block_one{
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    width: 85vw;
+    height: 15vh;
+    padding-bottom: 5vh;
+}
+
+.block_one_2{
+    width: 55vw;
+    height: 15vh;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    flex-direction: column;
+    margin-left: 5vw;
+}
+
+.item {
+    width: 22vw; 
+    margin-bottom: 1vh; 
+    display: flex;
+    align-items: center; 
+}
+
+.block_two{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 3vh 1vh;
+    background: white;
+    width: 85vw;
+}
+
+.block_item_voucher{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    width: 26vw;
+    height: 15vh;
+    border-radius: 5px;
+    position: relative;
+    background-color: rgb(236, 177, 223);
+    padding-left: 0.5vw;
+}
+
+.block_three{
+    width: 85vw;
+    display: flex;
+    flex-direction: column;
+}
+.showProducts{
+    display: flex;
+    width: 85vw;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.items_showProducts{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 15vw;
+    height: 33vh;
+    background: rgb(255, 255, 255);
+    margin-bottom: 1vh;
+    border-radius: 10px;
+}
+
+.img{
+    width: 11vw;
+    height: 7vw;
+    margin: 1vw 0;
+    border-radius: 6px;
+}
+
+.block_four{
+    width: 85vw;
+    display: flex;
+    flex-direction: row;
+    margin: 5vh 0;
+}
+
+.block_sidebar_shop{
+    width: 18vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-right: 3vw;
+}
+
+.categoryItem {
+    padding: 1.5vh 1vw;
+    font-size: 1.2vw;
+    
+
+    &:hover{
+        color: rgb(250, 93, 2);
+        margin-left: 1vw;
+        cursor: pointer;
+    }
+}
+  
+.categoryItem.active{
+    color: rgb(250, 93, 2);
+    margin-left: 0.5vw;
+}
+
+.categoryItem.active::before {
+    content: "►  ";  /* Mũi tên hướng sang phải */
+    font-size: 1.2vw;
+    color: rgb(250, 93, 2);
+}
+
+.activeButton{
+    background: rgb(250, 93, 2);
+    color: white;
+    border: none;
+}
+
+.showProducts_Shop{
+    display: grid;
+    width: 65vw;
+    grid-template-columns: repeat(4, 1fr); /* Chia 4 cột */
+    grid-gap: 2vh; /* Khoảng cách giữa các ô */
+    
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2vh;
+}
+  
+.pageButton {
+    border: none;
+    background: #eee;
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+  
+.pageButton:hover {
+    background: #39e113;
+    color: black;
+}
+  
+.activePage {
+    background: red;
+    color: white;
+    border: none;
+}
