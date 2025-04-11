@@ -8,7 +8,7 @@ import { addReviewProduct, getReviewProduct } from "../../service/review";
 import { Rate } from "antd";
 import { checkUserCanComment } from "../../service/product";
 
-export const Comments = ({ isPage, product, isOpen }) => {
+export const Comments = ({ isPage, product }) => {
     const [comments, setComments] = useState([])
     const [textComment, setTextComment] = useState('')
     const [isReset, setIsReset] = useState(false)
@@ -37,7 +37,6 @@ export const Comments = ({ isPage, product, isOpen }) => {
         }
     }
     const handleGetData = async () => {
-        if (!isOpen) return
         if (!product.ProductID) return
         const rs = await getReviewProduct({
             form: {
@@ -73,10 +72,10 @@ export const Comments = ({ isPage, product, isOpen }) => {
 
     useEffect(() => {
         handleGetData()
-    }, [product, isReset, isOpen])
+    }, [product, isReset])
 
     useEffect(() => {
-        handleCheckUserCanComment()
+            handleCheckUserCanComment()
     }, [product])
 
     return (

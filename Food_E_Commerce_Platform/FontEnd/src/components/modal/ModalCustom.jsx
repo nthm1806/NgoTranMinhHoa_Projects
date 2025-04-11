@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 
 export const ModalCustom = ({ isOpen, setIsOpen, children, title,hindTitle }) => {
@@ -21,3 +21,21 @@ export const ModalCustom = ({ isOpen, setIsOpen, children, title,hindTitle }) =>
   );
 };
 
+export const ModalNotify = ({notify, setNotify}) =>{
+
+  useEffect(()=>{
+    if(notify.isOpen){
+      setTimeout(()=>{
+        setNotify(pre => ({ ...pre, isOpen: false }))
+      }, 2000)
+    }
+  },[notify])
+
+  return(
+    <ModalCustom isOpen={notify.isOpen} hindTitle setIsOpen={() => setNotify(pre => ({ ...pre, isOpen: false }))}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: 20 }}>
+          {notify.icon} <h3 style={{ marginLeft: 10 }}> {notify.message} </h3>
+        </div>
+      </ModalCustom>
+  )
+}

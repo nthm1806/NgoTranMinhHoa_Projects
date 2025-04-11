@@ -1,0 +1,35 @@
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+.container h2 {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.info p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.info strong {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}

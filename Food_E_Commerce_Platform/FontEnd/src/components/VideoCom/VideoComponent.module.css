@@ -1,0 +1,148 @@
+.videoContainer {
+  display: flex;
+  margin-top: 3vh;
+  justify-content: center;
+  width: 100vw;
+  height: 90vh;
+}
+
+.videoInner {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  height: 100%;
+  button {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 5vh;
+    position: relative;
+    height: 5vh;
+    padding: 0;
+    cursor: pointer;
+    img {
+      width: 5vh;
+      height: 5vh;
+    }
+  }
+}
+.choose {
+  background-color: #ff0000;
+}
+.changeVideo {
+  width: 7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.arowTop {
+  transform: rotateZ(180deg);
+}
+.hidden {
+  display: none;
+}
+.video {
+  height: 90vh;
+  aspect-ratio: 9/16;
+  object-fit: cover;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.functionVideo {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 10vh;
+  text-align: center;
+  font-size: smaller;
+  div {
+    margin: 0.5vh 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  img {
+    border-radius: 50%;
+  }
+}
+.share {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20vw;
+  border: 2px solid black;
+  height: 10vh;
+  background-color: white;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Videofunc {
+  width: 27vw;
+  height: 100%;
+  margin-right: 3vw;
+  box-sizing: border-box;
+  border: 1px solid rgb(189, 189, 189);
+  border-radius: 10px;
+  padding: 10px;
+  overflow-y: scroll;
+  position: relative;
+  h3 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  h4 {
+    margin: 0;
+    padding: 10px 0px;
+    border-bottom: 1px solid rgb(189, 189, 189);
+  }
+  textarea {
+    width: 100%;
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+}
+.videoPrev {
+  width: 50%;
+  max-width: 100%;
+}
+.aply {
+  width: 100%;
+  height: 15vh;
+  overflow: hidden;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  textarea {
+    border: 1px solid rgb(170, 170, 170);
+    outline: none;
+    border-radius: 10px;
+    width: calc(100% - 12px);
+    height: 10vh;
+    resize: none;
+    padding: 5px;
+  }
+  button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 4vh;
+    font-size: small;
+    padding: 0 10px;
+    border: 2px solid black;
+    margin: 0;
+  }
+}

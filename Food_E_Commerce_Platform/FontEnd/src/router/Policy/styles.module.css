@@ -1,0 +1,158 @@
+.collapse_Item{
+    background-color: inherit !important;
+    border: none !important;
+}
+
+.collapse_Item :global(.ant-collapse-content){
+  background-color: inherit !important;
+  border: none !important;
+  width: 280px;
+}
+
+.policy_container{
+  display: flex;
+  justify-content: center;
+}
+.policy_content{
+  width: 700px;
+  margin-left: 70px;
+  text-align: justify;
+  height: 100vh;
+  overflow-y: auto;
+  padding-right: 20px;
+}
+
+
+.side-bar-search{
+  width: 250px;
+}
+.side-bar-search, .menu-side-bar-search{
+  background-color: white;
+  border-radius: 10px;
+  
+}
+.menu-side-bar-search >  .ant-menu-item:hover, .menu-side-bar-search >  li:hover, .menu-side-bar-search >  li ul li:hover{
+  text-decoration: none !important
+
+}
+.menu-side-bar-search >  .ant-menu-item, .ant-menu > .ant-menu-submenu-selected>.ant-menu-submenu-title, .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-submenu-title{
+  color: gray !important;
+}
+
+.menu-side-bar-search > .ant-menu-item-selected, .ant-menu-submenu > .ant-menu-item-selected, .ant-menu-dark .ant-menu-item-selected{
+  color: white;
+}
+
+.menu-side-bar-search > .ant-menu-item:hover{
+  color: black !important;
+}
+
+.menu-side-bar-search > .ant-menu-item-selected, .ant-menu-dark .ant-menu-item-selected {
+  background-color: rgb(7 89 133 / var(--tw-bg-opacity, 1));
+  color: white !important;
+}
+
+.menu-side-bar-search > .ant-menu-item-selected:hover, .ant-menu-dark .ant-menu-item-selected:hover {
+  background-color: rgb(3 105 161 / var(--tw-bg-opacity, 1));
+  color: white !important;
+}
+
+.ant-menu.ant-menu-inline .ant-menu-sub.ant-menu-inline{
+  background-color: white !important;
+}
+
+.search_form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fa7d35;
+  height: 150px;
+
+}
+
+.search_form :global(h2){
+  color: #fff;
+}
+
+
+/* input*/
+.button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+
+.form {
+  --timing: 0.3s;
+  --width-of-input: 600px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: var(--width-of-input);
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg, #fff);
+}
+
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+
+.form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+
+.form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.form:focus-within:before {
+  transform: scale(1);
+}
+
+.reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}

@@ -1,13 +1,17 @@
 import styles from "./Shop.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { GlobalContext } from "../../globalContext/GlobalContext";
 import { useAuth } from "../../globalContext/AuthContext";
 import { ShopContext } from "../../globalContext/ShopContext";
+import { CustomerBehaviorContext } from "../../globalContext/CustomerBehaviorContext";
+import { updateCart } from "../../service/cart";
+import { useCart } from "../../globalContext/CartContext";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
 function Shop() {
   let navigate = useNavigate();
+  const { fetchAddCustomerBehavior } = useContext(CustomerBehaviorContext);
   const {
     shopID,
     inforShopList,
@@ -19,8 +23,12 @@ function Shop() {
     listCustomerShopFollow = [],
   } = useContext(GlobalContext);
 
-  const { productShopList, setTypeCategory, setOptionProductShop } =
-    useContext(ShopContext);
+  const {
+    productShopList,
+    setTypeCategory,
+    setOptionProductShop,
+    productBehaviorShop,
+  } = useContext(ShopContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("Giá");
@@ -32,7 +40,9 @@ function Shop() {
   const [deleteCategoryLove, setDeleteCategoryLove] = useState("");
   const [activeAddTym, setActiveAddTym] = useState(false);
   const [activeDeleteTym, setActiveDeleteTym] = useState(false);
+  const [statusAddCart, setStatusAddCart] = useState(false);
   const { customerID } = useAuth() || {};
+  const { fetchCartCount } = useCart();
 
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8; // Hiển thị 8 sản phẩm mỗi trang
@@ -66,20 +76,31 @@ function Shop() {
   const [deleteVoucherID, setDeleteVoucherID] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndexSuggest, setCurrentIndexSuggest] = useState(0);
+  const [currentIndexBestSeller, setCurrentIndexBestSeller] = useState(0);
   const visibleItems = 3;
   const visibleItemsSuggest = 5;
 
+  const prevProductFavoriteListRef = useRef(productFavoriteList);
+
   // Xử lý chuyển trang
   const nextVouchers = () => {
-    if (currentIndex + visibleItems < voucherShopList.length) {
-      setCurrentIndex(currentIndex + visibleItems);
-    }
+    setCurrentIndex(
+      (prevIndex) =>
+        prevIndex + visibleItems < voucherShopList.length
+          ? prevIndex + visibleItems
+          : 0 // Nếu hết danh sách thì quay về đầu
+    );
   };
 
   const prevVouchers = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - visibleItems);
-    }
+    setCurrentIndex(
+      (prevIndex) =>
+        prevIndex - visibleItems >= 0
+          ? prevIndex - visibleItems
+          : voucherShopList.length -
+            (voucherShopList.length % visibleItems || visibleItems)
+      // Nếu đã ở đầu, quay về cuối danh sách
+    );
   };
 
   const prevSuggest = () => {
@@ -94,6 +115,25 @@ function Shop() {
 
   const nextSuggest = () => {
     setCurrentIndexSuggest((prevIndex) =>
+      prevIndex + visibleItemsSuggest < productShopSuggestList.length
+        ? prevIndex + visibleItemsSuggest
+        : 0
+    );
+  };
+
+  // For Sản Phẩm Bán Chạy Nhất section
+  const prevBestSeller = () => {
+    setCurrentIndexBestSeller((prevIndex) =>
+      prevIndex - visibleItemsSuggest >= 0
+        ? prevIndex - visibleItemsSuggest
+        : productShopSuggestList.length -
+          (productShopSuggestList.length % visibleItemsSuggest ||
+            visibleItemsSuggest)
+    );
+  };
+
+  const nextBestSeller = () => {
+    setCurrentIndexBestSeller((prevIndex) =>
       prevIndex + visibleItemsSuggest < productShopSuggestList.length
         ? prevIndex + visibleItemsSuggest
         : 0
@@ -176,14 +216,19 @@ function Shop() {
   };
 
   useEffect(() => {
-    // Khi productFavoriteList thay đổi, đồng bộ lại trạng thái yêu thích
-    const favoriteMap = {};
-    productFavoriteList.forEach((fav) => {
-      favoriteMap[fav.ProductID] = true; // Đánh dấu sản phẩm là yêu thích
-    });
-    setFavouriteProducts(favoriteMap);
+    // Kiểm tra nếu productFavoriteList thay đổi mới cập nhật
+    if (
+      JSON.stringify(prevProductFavoriteListRef.current) !==
+      JSON.stringify(productFavoriteList)
+    ) {
+      const favoriteMap = {};
+      productFavoriteList.forEach((fav) => {
+        favoriteMap[fav.ProductID] = true;
+      });
+      setFavouriteProducts(favoriteMap);
+      prevProductFavoriteListRef.current = productFavoriteList; // Cập nhật giá trị cũ
+    }
   }, [productFavoriteList]);
-
   const fetchDeleteProductFavorite = async (
     deleteProductIDTym,
     deleteCategoryLove,
@@ -316,8 +361,39 @@ function Shop() {
     }
   }, [isFollowing]);
 
+  const handleAddToCart = async (item) => {
+    try {
+      setStatusAddCart(!statusAddCart);
+      await updateCart({
+        customerID: customerID,
+        productID: item.ProductID,
+        quantity: 1,
+      });
+
+      await fetchCartCount();
+      setStatusAddCart(true);
+
+      console.log("item: ", item);
+    } catch (error) {
+      console.error("error handleSetFavorite: ", error);
+    }
+  };
+
   return (
     <>
+      {statusAddCart && customerID && (
+        <div className={styles.popup_overlay}>
+          <div className={styles.popup}>
+            Thêm vào giỏ hàng thành công!
+            <button
+              className={styles.close_btn}
+              onClick={() => setStatusAddCart(!statusAddCart)}
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
       <div className={styles.block_one}>
         <div style={{ width: "25vw", height: "15vh", position: "relative" }}>
           <img
@@ -352,6 +428,7 @@ function Shop() {
                 justifyContent: "center",
               }}
               onClick={() => {
+                setStatusFollow(!statusFollow);
                 setStatusDeleteFollow(!statusDeleteFollow);
                 setChangeStatusFollow(!changeStatusFollow);
               }}
@@ -408,9 +485,7 @@ function Shop() {
           <div className={styles.item}>
             Đang Theo:{" "}
             <span style={{ color: "red", marginLeft: "1vw" }}>
-              {statusFollow
-                ? inforShopList.following + 1
-                : inforShopList.following}
+              {inforShopList.following}
             </span>
           </div>
           <div className={styles.item}>
@@ -423,7 +498,9 @@ function Shop() {
           <div className={styles.item}>
             Người theo dõi:{" "}
             <span style={{ color: "red", marginLeft: "1vw" }}>
-              {inforShopList.total_products}
+              {changeStatusFollow
+                ? inforShopList.total_products + 1
+                : inforShopList.total_products}
             </span>
           </div>
           <div className={styles.item}>
@@ -460,7 +537,7 @@ function Shop() {
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: "10",
-              backgroundColor: "white",
+              backgroundColor: "black",
               border: "1px solid black",
               cursor: "pointer",
               borderRadius: "50%",
@@ -504,8 +581,8 @@ function Shop() {
                     position: "absolute",
                     right: "1vw",
                     top: "0.01vh",
-                    fontSize: "1vw",
-                    padding: "0.4vw",
+                    fontSize: "0.8vw",
+                    padding: "0.15vw",
                   }}
                 >
                   {savedVouchers[item.VoucherID] ? "✅ Đã Lưu" : "Lưu"}
@@ -522,7 +599,7 @@ function Shop() {
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: "10",
-              backgroundColor: "white",
+              backgroundColor: "black",
               border: "1px solid black",
               cursor: "pointer",
               borderRadius: "50%",
@@ -534,156 +611,191 @@ function Shop() {
           </button>
         )}
       </div>
-      <div className={styles.block_three}>
-        <div
-          style={{
-            padding: "1vw",
-            fontSize: "1.5vw",
-            fontWeight: "500",
-            color: "red",
-          }}
-        >
-          {" "}
-          Gợi Ý Cho Bạn <span style={{ color: "red" }}>(10 Sản Phẩm)</span>
-        </div>
-        {/* Hiển thị sản phẩm */}
-        <div
-          className={styles.showProducts}
-          style={{
-            position: "relative",
-            display: "flex",
-          }}
-        >
-          <button
+      {customerID && (
+        <div className={styles.block_three}>
+          <div
             style={{
-              position: "absolute",
-              left: "-2.3vw",
-              top: "50%",
-              transform: "translateY(-50%)",
-              zIndex: "10",
-              backgroundColor: "white",
-              border: "1px solid black",
-              cursor: "pointer",
-              borderRadius: "50%",
+              padding: "1vw",
+              fontSize: "1.5vw",
+              fontWeight: "500",
+              color: "red",
             }}
-            onClick={prevSuggest}
           >
-            &lt;
-          </button>
-          {productShopSuggestList.length > 0 ? (
-            productShopSuggestList
-              .slice(
-                currentIndexSuggest,
-                currentIndexSuggest + visibleItemsSuggest
-              )
-              .map((item, index) => (
-                <div key={index} className={styles.items_showProducts}>
-                  <img
-                    style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/product/${item.ProductID}`)}
-                    className={styles.img}
-                    src={item.ProductImg}
-                    alt=""
-                  />
-                  <p
-                    onClick={() => navigate(`/product/${item.ProductID}`)}
-                    style={{
-                      cursor: "pointer",
-                      marginBottom: "2vh",
-                      marginTop: "0",
-                    }}
-                  >
-                    {item.ProductName}
-                  </p>
+            {" "}
+            Gợi Ý Cho Bạn
+          </div>
+          {/* Hiển thị sản phẩm */}
+          <div
+            className={styles.showProducts}
+            style={{
+              position: "relative",
+              display: "flex",
+            }}
+          >
+            <button
+              style={{
+                position: "absolute",
+                left: "-2.3vw",
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: "10",
+                backgroundColor: "black",
+                border: "1px solid black",
+                cursor: "pointer",
+                borderRadius: "50%",
+              }}
+              onClick={prevSuggest}
+            >
+              &lt;
+            </button>
+            {productBehaviorShop.length > 0 ? (
+              productBehaviorShop
+                .slice(
+                  currentIndexSuggest,
+                  currentIndexSuggest + visibleItemsSuggest
+                )
+                .map((item, index) => (
                   <div
-                    style={{
-                      color: "red",
-                      marginBottom: "1.5vh",
-                      height: "1.7vw",
-                      display: "flex",
-                      flexDirection: "row",
-                      position: "relative",
-                    }}
+                    onClick={() =>
+                      fetchAddCustomerBehavior(
+                        customerID,
+                        item.ProductID,
+                        item.Category,
+                        "view",
+                        shopID
+                      )
+                    }
+                    key={index}
+                    className={styles.items_showProducts}
                   >
-                    {Number(item.Price).toLocaleString("vi-VI", {
-                      style: "currency",
-                      currency: "VND",
-                    })}{" "}
-                    <span
-                      onClick={() => {
-                        if (favouriteProducts[item.ProductID]) {
-                          // Nếu đã yêu thích, xóa khỏi danh sách
-                          setDeleteCategoryLove(item.Category);
-                          setDeleteProductIDTym(item.ProductID);
-                          setActiveDeleteTym(!activeDeleteTym);
-
-                        } else {
-                          // Nếu chưa yêu thích, thêm vào danh sách
-                          setProductIDTym(item.ProductID);
-                          setCategoryLove(item.Category);
-                          setActiveAddTym(!activeAddTym);
-
-                        }
+                    <img
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(`/product/${item.ProductID}`)}
+                      className={styles.img}
+                      src={item.ProductImg}
+                      alt=""
+                    />
+                    <p
+                      onClick={() => navigate(`/product/${item.ProductID}`)}
+                      style={{
+                        cursor: "pointer",
+                        marginBottom: "2vh",
+                        marginTop: "0",
                       }}
                     >
-                      {favouriteProducts[item.ProductID] ? (
-                        <img
+                      {item.ProductName}
+                    </p>
+                    <div
+                      style={{
+                        color: "red",
+                        marginBottom: "1.5vh",
+                        height: "1.7vw",
+                        display: "flex",
+                        flexDirection: "row",
+                        position: "relative",
+                      }}
+                    >
+                      <button
+                        onClick={() => handleAddToCart(item)}
+                        style={{
+                          position: "absolute",
+                          left: "-4.7vw",
+                          padding: "0.1vw",
+                          fontSize: "0.5vw",
+                        }}
+                      >
+                        Add To Cart
+                      </button>
+                      {Number(item.Price).toLocaleString("vi-VI", {
+                        style: "currency",
+                        currency: "VND",
+                      })}{" "}
+                      <span
+                        onClick={() => {
+                          if (favouriteProducts[item.ProductID]) {
+                            setDeleteCategoryLove(item.Category);
+                            setDeleteProductIDTym(item.ProductID);
+                            setActiveDeleteTym(!activeDeleteTym);
+                          } else {
+                            setProductIDTym(item.ProductID);
+                            setCategoryLove(item.Category);
+                            setActiveAddTym(!activeAddTym);
+                          }
+                        }}
+                      >
+                        {favouriteProducts[item.ProductID] ? (
+                          <img
+                            style={{
+                              cursor: "pointer",
+                              position: "absolute",
+                              right: "-4.5vw",
+                              top: "50%",
+                              transform: "translateY(-50%)",
+                              width: "2vw",
+                              height: "1.5vw",
+                            }}
+                            src="/tym_do.png"
+                            alt="Yêu thích"
+                          />
+                        ) : (
+                          <img
+                            style={{
+                              cursor: "pointer",
+                              position: "absolute",
+                              right: "-4vw",
+                              top: "50%",
+                              transform: "translateY(-50%)",
+                              width: "1vw",
+                              height: "1vw",
+                            }}
+                            src="/tym.png"
+                            alt="Chưa yêu thích"
+                          />
+                        )}
+                      </span>
+                    </div>
+                    {item.Category === "Đồ Tươi Sống" && (
+                      <div style={{ paddingBottom: "0.5vh" }}>
+                        Khối Lượng:
+                        <span
                           style={{
-                            cursor: "pointer",
-                            position: "absolute",
-                            right: "-4vw",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            width: "2.5vw",
-                            height: "2vw",
+                            marginLeft: "0.5vw",
+                            color: "Green",
+                            fontWeight: "500",
                           }}
-                          src="/tym_do.png"
-                          alt="Yêu thích"
-                        />
-                      ) : (
-                        <img
-                          style={{
-                            cursor: "pointer",
-                            position: "absolute",
-                            right: "-4vw",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            width: "1vw",
-                            height: "1vw",
-                          }}
-                          src="/tym.png"
-                          alt="Chưa yêu thích"
-                        />
-                      )}
-                    </span>
+                        >
+                          {item.Weight} g
+                        </span>{" "}
+                      </div>
+                    )}
+                    <div>
+                      Đã bán:{" "}
+                      <span style={{ color: "blue" }}>{item.SoldQuantity}</span>
+                    </div>
                   </div>
-                  <div>
-                    =&gt; Đã bán:{" "}
-                    <span style={{ color: "blue" }}>{item.SoldQuantity}</span>
-                  </div>
-                </div>
-              ))
-          ) : (
-            <p>Không có dữ liệu</p>
-          )}
-          <button
-            style={{
-              position: "absolute",
-              right: "-2.3vw",
-              top: "50%",
-              transform: "translateY(-50%)",
-              zIndex: "10",
-              backgroundColor: "white",
-              border: "1px solid black",
-              cursor: "pointer",
-              borderRadius: "50%",
-            }}
-            onClick={nextSuggest}
-          >
-            &gt;
-          </button>
+                ))
+            ) : (
+              <p>Không có dữ liệu</p>
+            )}
+            <button
+              style={{
+                position: "absolute",
+                right: "-2.3vw",
+                top: "50%",
+                transform: "translateY(-50%)",
+                zIndex: "10",
+                backgroundColor: "black",
+                border: "1px solid black",
+                cursor: "pointer",
+                borderRadius: "50%",
+              }}
+              onClick={nextSuggest}
+            >
+              &gt;
+            </button>
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.block_three}>
         <div
           style={{
@@ -693,11 +805,8 @@ function Shop() {
             color: "red",
           }}
         >
-          {" "}
           Sản Phẩm Bán Chạy Nhất{" "}
-          <span style={{ color: "red" }}>(10 Sản Phẩm)</span>
         </div>
-        {/* Hiển thị sản phẩm */}
         <div
           className={styles.showProducts}
           style={{
@@ -712,23 +821,36 @@ function Shop() {
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: "10",
-              backgroundColor: "white",
+              backgroundColor: "black",
               border: "1px solid black",
               cursor: "pointer",
               borderRadius: "50%",
             }}
-            onClick={prevSuggest}
+            onClick={prevBestSeller}
           >
             &lt;
           </button>
+
           {productShopSuggestList.length > 0 ? (
             productShopSuggestList
               .slice(
-                currentIndexSuggest,
-                currentIndexSuggest + visibleItemsSuggest
+                currentIndexBestSeller,
+                currentIndexBestSeller + visibleItemsSuggest
               )
               .map((item, index) => (
-                <div key={index} className={styles.items_showProducts}>
+                <div
+                  onClick={() =>
+                    fetchAddCustomerBehavior(
+                      customerID,
+                      item.ProductID,
+                      item.Category,
+                      "view",
+                      shopID
+                    )
+                  }
+                  key={index}
+                  className={styles.items_showProducts}
+                >
                   <img
                     style={{ cursor: "pointer" }}
                     onClick={() => navigate(`/product/${item.ProductID}`)}
@@ -756,19 +878,28 @@ function Shop() {
                       position: "relative",
                     }}
                   >
+                    <button
+                      onClick={() => handleAddToCart(item)}
+                      style={{
+                        position: "absolute",
+                        left: "-4.7vw",
+                        padding: "0.1vw",
+                        fontSize: "0.5vw",
+                      }}
+                    >
+                      Add To Cart
+                    </button>
                     {Number(item.Price).toLocaleString("vi-VI", {
                       style: "currency",
                       currency: "VND",
-                    })}{" "}
+                    })}
                     <span
                       onClick={() => {
                         if (favouriteProducts[item.ProductID]) {
-                          // Nếu đã yêu thích, xóa khỏi danh sách
                           setDeleteCategoryLove(item.Category);
                           setDeleteProductIDTym(item.ProductID);
                           setActiveDeleteTym(!activeDeleteTym);
                         } else {
-                          // Nếu chưa yêu thích, thêm vào danh sách
                           setProductIDTym(item.ProductID);
                           setCategoryLove(item.Category);
                           setActiveAddTym(!activeAddTym);
@@ -780,11 +911,11 @@ function Shop() {
                           style={{
                             cursor: "pointer",
                             position: "absolute",
-                            right: "-4vw",
+                            right: "-4.5vw",
                             top: "50%",
                             transform: "translateY(-50%)",
-                            width: "2.5vw",
-                            height: "2vw",
+                            width: "2vw",
+                            height: "1.5vw",
                           }}
                           src="/tym_do.png"
                           alt="Yêu thích"
@@ -806,8 +937,22 @@ function Shop() {
                       )}
                     </span>
                   </div>
+                  {item.Category === "Đồ Tươi Sống" && (
+                    <div style={{ paddingBottom: "0.5vh" }}>
+                      Khối Lượng:{" "}
+                      <span
+                        style={{
+                          marginLeft: "0.5vw",
+                          color: "Green",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {item.Weight} g
+                      </span>{" "}
+                    </div>
+                  )}
                   <div>
-                    =&gt; Đã bán:{" "}
+                    Đã bán:{" "}
                     <span style={{ color: "blue" }}>{item.SoldQuantity}</span>
                   </div>
                 </div>
@@ -815,6 +960,7 @@ function Shop() {
           ) : (
             <p>Không có dữ liệu</p>
           )}
+
           <button
             style={{
               position: "absolute",
@@ -822,12 +968,12 @@ function Shop() {
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: "10",
-              backgroundColor: "white",
+              backgroundColor: "black",
               border: "1px solid black",
               cursor: "pointer",
               borderRadius: "50%",
             }}
-            onClick={nextSuggest}
+            onClick={nextBestSeller}
           >
             &gt;
           </button>
@@ -1007,7 +1153,19 @@ function Shop() {
           <div className={styles.showProducts_Shop}>
             {currentProducts.length > 0 ? (
               currentProducts.map((item, index) => (
-                <div key={index} className={styles.items_showProducts}>
+                <div
+                  onClick={() =>
+                    fetchAddCustomerBehavior(
+                      customerID,
+                      item.ProductID,
+                      item.Category,
+                      "view",
+                      shopID
+                    )
+                  }
+                  key={index}
+                  className={styles.items_showProducts}
+                >
                   <img
                     style={{ cursor: "pointer" }}
                     onClick={() => navigate(`/product/${item.ProductID}`)}
@@ -1036,26 +1194,37 @@ function Shop() {
                       fontWeight: "bold",
                       alignItems: "center",
                       position: "relative",
+                      justifyContent: "space-around",
                     }}
                   >
+                    <button
+                      onClick={() => handleAddToCart(item)}
+                      style={{
+                        position: "absolute",
+                        left: "-4.3vw",
+                        padding: "0.1vw",
+                        fontSize: "0.5vw",
+                      }}
+                    >
+                      Add To Cart
+                    </button>
                     {Number(item.Price).toLocaleString("vi-VI", {
                       style: "currency",
                       currency: "VND",
                     })}
                     <span
+                      style={{ padding: "0vw" }}
                       onClick={() => {
                         if (favouriteProducts[item.ProductID]) {
                           // Nếu đã yêu thích, xóa khỏi danh sách
                           setDeleteCategoryLove(item.Category);
                           setDeleteProductIDTym(item.ProductID);
                           setActiveDeleteTym(!activeDeleteTym);
-
                         } else {
                           // Nếu chưa yêu thích, thêm vào danh sách
                           setProductIDTym(item.ProductID);
                           setCategoryLove(item.Category);
                           setActiveAddTym(!activeAddTym);
-
                         }
                       }}
                     >
@@ -1064,11 +1233,11 @@ function Shop() {
                           style={{
                             cursor: "pointer",
                             position: "absolute",
-                            right: "-4vw",
+                            right: "-4.5vw",
                             top: "50%",
                             transform: "translateY(-50%)",
-                            width: "2.5vw",
-                            height: "2vw",
+                            width: "2vw",
+                            height: "1.5vw",
                           }}
                           src="/tym_do.png"
                           alt="Yêu thích"
@@ -1105,7 +1274,7 @@ function Shop() {
                     </div>
                   )}
                   <div>
-                    =&gt; Đã bán:{" "}
+                    Đã bán:{" "}
                     <span style={{ marginLeft: "0.5vw", color: "blue" }}>
                       {item.SoldQuantity}
                     </span>

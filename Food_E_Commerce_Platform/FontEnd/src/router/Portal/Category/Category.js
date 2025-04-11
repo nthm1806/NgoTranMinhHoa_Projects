@@ -95,7 +95,10 @@ function Category() {
                     {selectedItem ? (
                         <>
                             <h3 className={theme === "dark" ? styles.darkText : ""}>{selectedItem.title}</h3>
-                            <p className={theme === "dark" ? styles.darkText : ""}>{selectedItem.details}</p>
+                            <p className={`${styles.detailsText} ${theme === "dark" ? styles.darkText : ""}`}>
+                                {selectedItem.details}
+                            </p>
+
                         </>
                     ) : (
                         <p className={theme === "dark" ? styles.darkText : ""}>Vui lòng chọn một mục để xem chi tiết.</p>

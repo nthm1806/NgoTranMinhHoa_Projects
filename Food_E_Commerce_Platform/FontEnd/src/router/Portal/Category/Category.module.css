@@ -346,3 +346,12 @@
 .dark .empty_cart {
     color: #bbb;
 }
+
+.detailsText {
+    text-align: justify;
+    line-height: 1.7;
+    font-size: 16px;
+    color: #333;
+    white-space: pre-line;
+    /* hỗ trợ xuống dòng nếu dữ liệu có \n */
+}

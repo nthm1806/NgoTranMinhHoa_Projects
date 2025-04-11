@@ -1,8 +1,13 @@
 import styles from "./Footer.module.css";
+import { GlobalContext } from "../../globalContext/GlobalContext";
+import { useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Footer() {
+  const {setShopID} = useContext(GlobalContext); 
+  const navigate = useNavigate();
   return (
-    <div className={styles.footer_wrapper}>
+    <div onClick={() => {setShopID(3); navigate("/shop")}} className={styles.footer_wrapper}>
       <div className={styles.footer_container_first}></div>
       <div className={styles.footer_container_second}>
          Group5Food lan tỏa vẻ đẹp truyền thống ẩm thực Việt!
@@ -20,7 +25,7 @@ function Footer() {
         ))}
       </div>
       <div className={styles.footer_block_middle}>
-        <img src="logo.png" alt="logo" />
+        <img src="/logo.png" alt="logo" />
       </div>
       <div className={styles.footer_block_end}>
         <div className={styles.footer_block_end_box_first}>

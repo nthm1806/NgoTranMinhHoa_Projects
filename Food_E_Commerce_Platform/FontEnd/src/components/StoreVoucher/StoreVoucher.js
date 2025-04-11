@@ -1,10 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import styles from './StoreVoucher.module.css'
 import axios from 'axios'
-import { useCustomer } from "../../Context";
 
 function StoreVoucher() {
-  const { customer } = useCustomer();
+  const  customer = JSON.parse(localStorage.getItem("user"));
     const [chooseType,setChooseType] = useState('Tất cả');
     const [allVouchers,setAllVouchers] = useState([]);
     const [chooseVouchers,setChooseVouchers] = useState([]);
@@ -13,7 +12,7 @@ function StoreVoucher() {
         fetchVoucher();
     },[])
     const fetchVoucher = async()=>{
-        const cusID = customer.CustomerID
+        const cusID = customer.id
         const response = await axios.post('http://localhost:3001/api/Voucher/fetchVoucherByCusID',{cusID});
         await setAllVouchers(response.data);
         await setChooseVouchers(response.data);

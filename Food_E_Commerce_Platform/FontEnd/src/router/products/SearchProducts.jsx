@@ -30,15 +30,12 @@ function SearchProduct() {
             })
         ]);
         setListFavorite(resListFavorite.data[0])
-       setProducts(res.data.docs?.[0])
-       setCounts(res.data.counts)
+        setProducts(res.data.docs?.[0])
+        setCounts(res.data.counts)
 
       } catch (error) {
-        
       }
-        
     }
-    
     useEffect(()=>{
         handleGetData()
     },[valueFilter, window?.location?.search, keywordRD?.keyword])

@@ -4,6 +4,7 @@ import Background from "../../layout/Background/Background";
 import Notification from "../../layout/Notification/Notification";
 import { GlobalProvider } from "../../globalContext/GlobalContext";
 import { AuthProvider } from "../../globalContext/AuthContext";
+import Chatbot from "../../components/chatbox/ChatBox";
 
 function Home() {
   return (
@@ -13,6 +14,7 @@ function Home() {
           <Header />
           <Background>
             <Notification></Notification>
+            <Chatbot></Chatbot>
             <Footer></Footer>
           </Background>
         </AuthProvider>

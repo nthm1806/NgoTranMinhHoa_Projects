@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import Header from "../../layout/Header/Header";
 import Footer from "../../layout/Footer/Footer";
 import styles from "./OrderandVoucher.module.css";
-import { useCustomer } from "../../Context";
 import ViewOrder from "../../components/ViewOrder/ViewOrder";
 import StoreVoucher from "../../components/StoreVoucher/StoreVoucher";
 import { useNavigate } from "react-router-dom";
 import { GlobalProvider } from "../../globalContext/GlobalContext";
 
 function StatusOrrder() {
+  const { name, avatar } = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-  const { customer } = useCustomer();
   const [chooseFunction, setChooseFunction] = useState("Đơn mua");
-
-
+  console.log(localStorage.getItem("user"));
   return (
     <div>
       <Header></Header>
@@ -24,8 +22,8 @@ function StatusOrrder() {
               className={styles.indexIntro}
               onClick={() => navigate("../customers/")}
             >
-              <img alt="" src={customer.Avatar} />
-              {customer.FirstName + " " + customer.LastName}
+              <img alt="" src={avatar} />
+              {name}
             </div>
             <div
               className={`${styles.function} ${
@@ -47,7 +45,6 @@ function StatusOrrder() {
             </div>
           </div>
           {chooseFunction === "Đơn mua" ? (
-            
             <GlobalProvider>
               <ViewOrder></ViewOrder>
             </GlobalProvider>

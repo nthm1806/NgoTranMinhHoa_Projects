@@ -1,0 +1,224 @@
+.chatContainer {
+    position: fixed;
+    bottom: 0;
+    right: 100px;
+    min-width: 350px;
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .chatContainer_icon {
+    position: fixed;
+    bottom: 0;
+    right: 100px;
+    max-width: 400px;
+    margin: auto;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  
+  .chatHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    background: #f8f9fa;
+    cursor: pointer;
+  }
+  
+  .chatHeader h2 {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+  }
+  
+  .onlineStatus {
+    background: green;
+    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
+  }
+  
+  .chatDisplay {
+    flex: 1;
+    padding: 12px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 300px;
+    height: 300px;
+    max-height: 300px;
+
+  }
+  
+  .chatMessage {
+    max-width: 75%;
+    padding: 8px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  
+  .userMessage {
+    align-self: flex-end;
+    background: #007bff;
+    color: white;
+  }
+  
+  .createAt{
+    font-size: 9px;
+    color: #777;
+    align-self: flex-end;
+    margin-bottom: 5px;
+  }
+
+  .userMessage_question {
+    align-self: flex-end;
+    background: #ffffff;
+    color: rgb(26, 26, 26);
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  }
+  
+  .botMessage {
+    align-self: flex-start;
+    background: #6c757d;
+    color: white;
+  }
+  
+  .chatInputContainer {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #ddd;
+    background: #f8f9fa;
+  }
+  
+  .chatInput {
+    flex: 1;
+    padding: 0px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .chatInput:focus {
+    outline: none;
+  }
+
+  .sendButton {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-left: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .sendButton:hover {
+    background: #0056b3;
+  }
+  
+
+  .menuList {
+    position: relative;
+    display: flex;
+    gap: 25px;
+    padding: 0;
+  }
+  
+  .menuItem {
+    position: relative;
+    list-style: none;
+    width: 60px;
+    height: 54px;
+    background: #fff;
+    border-radius: 60px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+  }
+  
+  .menuItem:hover {
+    width: 180px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
+  }
+  
+  .menuItem::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 60px;
+    background: linear-gradient(45deg, var(--i), var(--j));
+    opacity: 0;
+    transition: 0.5s;
+  }
+  
+  .menuItem:hover::before {
+    opacity: 1;
+  }
+  
+  .menuItem::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    height: 100%;
+    border-radius: 60px;
+    background: linear-gradient(45deg, var(--i), var(--j));
+    transition: 0.5s;
+    filter: blur(15px);
+    z-index: -1;
+    opacity: 0;
+  }
+  
+  .menuItem:hover::after {
+    opacity: 0.5;
+  }
+  
+  .icon {
+    color: #777;
+    font-size: 1.75em;
+    transition: 0.5s;
+    transition-delay: 0.25s;
+  }
+  
+  .menuItem:hover .icon {
+    transform: scale(0);
+    color: #fff;
+    transition-delay: 0s;
+  }
+  
+  .menuItem span {
+    position: absolute;
+  }
+  
+  .title {
+    color: #fff;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transform: scale(0);
+    transition: 0.5s;
+    transition-delay: 0s;
+  }
+  
+  .menuItem:hover .title {
+    transform: scale(1);
+    transition-delay: 0.25s;
+  }
+  

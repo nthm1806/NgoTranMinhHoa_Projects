@@ -1,0 +1,158 @@
+.blogWrapper {
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.top_page {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.top_page .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.top_page .button_myblog {
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    background: red;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.blogGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.blogCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 420px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.4ms ease;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.blogCardHidden {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.blogImage {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    height: 180px;
+    object-fit: cover;
+}
+
+.blogContent {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.blogCategory {
+    color: gray;
+    font-size: 0.9rem;
+}
+
+.blogTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.blogDescription {
+    margin-top: 10px;
+    color: #666;
+}
+
+.categoryContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.categoryButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: normal;
+    color: #000;
+    transition: background 0.3s, color 0.3s, font-weight 0.3s;
+    background: transparent;
+}
+
+.categoryButton:hover {
+    background: #ddd;
+}
+
+.categoryButton.active {
+    background: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.blogLink {
+    text-decoration: none;
+    color: #000dff;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    gap: 8px;
+}
+
+.paginationButton {
+    padding: 6px 12px;
+    background-color: #e60012;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.paginationButton:hover {
+    background-color: #bf000f;
+    color: white;
+}
+
+.paginationButton.active {
+    background-color: #bf000f;
+    color: white;
+}

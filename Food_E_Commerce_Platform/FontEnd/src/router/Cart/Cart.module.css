@@ -1,4 +1,3 @@
-/* Chế độ sáng mặc định */
 .cart_container {
   width: 100vw;
   display: flex;
@@ -182,8 +181,12 @@
   margin-top: 20px;
 }
 
+.total h3 {
+  color: #0373db;
+}
+
 .checkout_button {
-  background: #1890ff;
+  background: #0373db;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -197,7 +200,6 @@
   transform: scale(1.05);
 }
 
-/* Chế độ tối */
 .dark {
   background-color: #1e1e1e;
   color: white;

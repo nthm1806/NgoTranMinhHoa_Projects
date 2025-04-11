@@ -6,6 +6,8 @@ import { GlobalProvider } from "../../globalContext/GlobalContext";
 import { AuthProvider } from "../../globalContext/AuthContext";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Chatbot from "../../components/chatbox/ChatBox";
+import LanguageSwitcher from "../../components/Language/LanguageSwitcher";
 
 function Home() {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ function Home() {
           <Header />
           <Background>
             <Main></Main>
+            <Chatbot></Chatbot>
             <Footer></Footer>
           </Background>
         </GlobalProvider>

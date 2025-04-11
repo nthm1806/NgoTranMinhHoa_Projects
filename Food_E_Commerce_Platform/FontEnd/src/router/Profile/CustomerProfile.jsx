@@ -160,68 +160,81 @@ const CustomerProfile = ({ customer, onUpdate }) => {
                         </label>
                     )}
                 </div>
-    
+
                 <div className={styles.infoContainer}>
                     {isEditing ? (
-                        <form onSubmit={handleUpdateCustomer} className={styles.profileForm}>
-                            <label>{t("FirstName")}</label>
-                            <input
-                                type="text"
-                                name="FirstName"
-                                value={formData.FirstName}
-                                onChange={handleInputChange}
-                                placeholder={validationErrors.FirstName || "Nhập Họ"}
-                                className={theme === "dark" ? styles.darkInput : ""}
-                            />
-    
-                            <label>{t("LastName")}</label>
-                            <input
-                                type="text"
-                                name="LastName"
-                                value={formData.LastName}
-                                onChange={handleInputChange}
-                                placeholder={validationErrors.LastName || "Nhập Tên"}
-                                className={theme === "dark" ? styles.darkInput : ""}
-                            />
-    
-                            <label>{t("DOB")}</label>
-                            <input
-                                type="date"
-                                name="DateOfBirth"
-                                value={formData.DateOfBirth}
-                                onChange={handleInputChange}
-                                placeholder={validationErrors.DateOfBirth || "Chọn Ngày Sinh"}
-                                className={theme === "dark" ? styles.darkInput : ""}
-                            />
-    
-                            <label>{t("Phone")}</label>
-                            <input
-                                type="text"
-                                name="PhoneNumber"
-                                value={formData.PhoneNumber}
-                                onChange={handleInputChange}
-                                placeholder={validationErrors.PhoneNumber || "Nhập số điện thoại"}
-                                className={theme === "dark" ? styles.darkInput : ""}
-                            />
-    
-                            <label>{t("Gender")}</label>
-                            <select
-                                name="Gender"
-                                onChange={handleInputChange}
-                                className={theme === "dark" ? styles.darkSelect : ""}
-                            >
-                                <option value="1">{t("Male")}</option>
-                                <option value="2">{t("Female")}</option>
-                            </select>
-    
-                            <label>Email:</label>
-                            <div className={styles.profileInfo}>
-                                <p> <span className={styles.infoText}>{maskEmail(customer.Email)}</span></p>
-                            </div>
-    
-                            <button type="submit" className={theme === "dark" ? styles.darkButton : ""}>{t("Update")}</button>
-                            <button type="button" onClick={() => setIsEditing(false)} className={theme === "dark" ? styles.darkButton : ""}>{t("Close")}</button>
-                        </form>
+                        <div className={styles.formWrapper}>
+                                                        
+                            {validationErrors.FirstName && (
+                                <div className={styles.errorContainer}>
+                                    <p className={styles.errorText}>{validationErrors.FirstName}</p>
+                                </div>
+                            )}                            
+                            {validationErrors.PhoneNumber && (
+                                <div className={styles.errorContainer}>
+                                    <p className={styles.errorText}>{validationErrors.PhoneNumber}</p>
+                                </div>
+                            )}
+
+                            <form onSubmit={handleUpdateCustomer} className={styles.profileForm}>
+                                <label>{t("FirstName")}</label>
+                                <input
+                                    type="text"
+                                    name="FirstName"
+                                    value={formData.FirstName}
+                                    onChange={handleInputChange}
+                                    placeholder={validationErrors.FirstName || "Nhập Họ"}
+                                    className={`${theme === "dark" ? styles.darkInput : ""} ${validationErrors.FirstName ? styles.errorInput : ""}`}
+                                />
+
+                                <label>{t("LastName")}</label>
+                                <input
+                                    type="text"
+                                    name="LastName"
+                                    value={formData.LastName}
+                                    onChange={handleInputChange}
+                                    placeholder={validationErrors.LastName || "Nhập Tên"}
+                                    className={`${theme === "dark" ? styles.darkInput : ""} ${validationErrors.LastName ? styles.errorInput : ""}`}
+                                />
+
+                                <label>{t("DOB")}</label>
+                                <input
+                                    type="date"
+                                    name="DateOfBirth"
+                                    value={formData.DateOfBirth}
+                                    onChange={handleInputChange}
+                                    className={`${theme === "dark" ? styles.darkInput : ""} ${validationErrors.DateOfBirth ? styles.errorInput : ""}`}
+                                />
+
+                                <label>{t("Phone")}</label>
+                                <input
+                                    type="text"
+                                    name="PhoneNumber"
+                                    value={formData.PhoneNumber}
+                                    onChange={handleInputChange}
+                                    placeholder={validationErrors.PhoneNumber || "Nhập số điện thoại"}
+                                    className={`${theme === "dark" ? styles.darkInput : ""} ${validationErrors.PhoneNumber ? styles.errorInput : ""}`}
+                                />
+
+                                <label>{t("Gender")}</label>
+                                <select
+                                    name="Gender"
+                                    onChange={handleInputChange}
+                                    className={theme === "dark" ? styles.darkSelect : ""}
+                                >
+                                    <option value="1">{t("Male")}</option>
+                                    <option value="2">{t("Female")}</option>
+                                </select>
+
+                                <label>Email:</label>
+                                <div className={styles.profileInfo}>
+                                    <p><span className={styles.infoText}>{maskEmail(customer.Email)}</span></p>
+                                </div>
+
+                                <button type="submit" className={theme === "dark" ? styles.darkButton : ""}>{t("Update")}</button>
+                                <button type="button" onClick={() => setIsEditing(false)} className={theme === "dark" ? styles.darkButton : ""}>{t("Close")}</button>
+                            </form>
+                        </div>
                     ) : (
                         <div className={styles.profileInfo}>
                             <p><strong>{t("FirstName")}</strong> <span className={styles.infoText}>{customer.FirstName}</span></p>
@@ -230,13 +243,15 @@ const CustomerProfile = ({ customer, onUpdate }) => {
                             <p><strong>{t("Phone")}</strong> <span className={styles.infoText}>{maskPhoneNumber(customer.PhoneNumber)}</span></p>
                             <p><strong>{t("Gender")}</strong> <span className={styles.infoText}>{customer.Gender === "1" ? t("Male") : t("Female")}</span></p>
                             <p><strong>Email:</strong> <span className={styles.infoText}>{maskEmail(customer.Email)}</span></p>
+
                             <button onClick={() => setIsEditing(true)} className={theme === "dark" ? styles.darkButton : ""}>{t("Edit")}</button>
                         </div>
                     )}
                 </div>
+
             </div>
         </div>
-    );    
+    );
 };
 
 export default CustomerProfile;

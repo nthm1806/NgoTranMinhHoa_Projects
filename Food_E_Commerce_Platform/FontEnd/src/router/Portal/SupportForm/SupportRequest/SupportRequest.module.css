@@ -55,7 +55,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 .supportForm button:hover {
@@ -98,4 +98,26 @@
     max-width: 1200px;
     margin-left: 200px;
     /* Dịch sang phải bằng khoảng cách mong muốn */
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.historyButton {
+    background-color: #1890ff;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.historyButton:hover {
+    background-color: #1677cc;
 }

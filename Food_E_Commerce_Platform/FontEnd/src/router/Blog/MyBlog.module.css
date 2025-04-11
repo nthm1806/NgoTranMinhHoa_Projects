@@ -1,0 +1,112 @@
+.myBlogController {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px auto 0 auto;
+}
+
+.myBlogHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.myBlogHeader .title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.myBlogHeader .backButton {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.myBlogHeader .button_add {
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    background: red;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.myBlogHeader .backButton:hover {
+    background-color: #cc0000;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 70%;
+    margin: 0 auto;
+}
+
+.blogItem {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    align-items: center;
+}
+
+.blogThumbnail {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.blogInfo {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.blogInfo h3 {
+    margin: 0 0 6px 0;
+    font-size: 16px;
+}
+
+.blogInfo p {
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.blogActions {
+    display: flex;
+    gap: 6px;
+}
+
+.blogActions button {
+    margin-top: 6px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.blogActions button:first-child {
+    background-color: #077bff;
+}
+
+.blogActions button:last-child {
+    background-color: #e60012;
+}

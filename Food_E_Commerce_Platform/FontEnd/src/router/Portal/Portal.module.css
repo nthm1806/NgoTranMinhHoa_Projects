@@ -269,18 +269,19 @@
   justify-content: center;
   padding: 15px;
   border-radius: 8px;
-  border: 1px solid #f3f3f3;
-  background-color: #fcfcfc;
+  border: 1px solid #f04e30;
+  background-color: #f04e30;
   font-size: 16px;
   font-weight: bold;
-  color: black;
+  color: white;
   text-decoration: none;
   transition: background-color 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
   text-align: center;
 }
 
 .supportLink:hover {
-  background-color: white;
+  background-color: rgb(255, 13, 0);
+  ;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -336,23 +337,23 @@
 /* ============================ */
 /* Dark Mode Search Banner */
 .dark .searchBanner {
-  background-color: #222; 
+  background-color: #222;
   color: white;
 }
 
 .dark .searchBanner h1 {
-  color: white; 
+  color: white;
 }
 
 /* ============================ */
 /* Dark Mode Category Grid */
 .dark .categoryItem {
-  background-color: #222; 
-  color: white; 
+  background-color: #222;
+  color: white;
 }
 
 .dark .categoryItem:hover {
-  background-color: #333; 
+  background-color: #333;
 }
 
 .dark .categoryItem img {
@@ -360,19 +361,19 @@
 }
 
 .dark .categoryItem span {
-  color: white; 
+  color: white;
 }
 
 /* ============================ */
 /* Dark Mode for Search Results */
 .dark .resultsContainer h2 {
-  color: #ccc; 
+  color: #ccc;
 }
 
 .dark .resultsList li {
-  background-color: #333; 
+  background-color: #333;
   color: white;
-  border-bottom: 1px solid #444; 
+  border-bottom: 1px solid #444;
 }
 
 .dark .resultsList li:hover {
@@ -392,7 +393,7 @@
 }
 
 .dark .sidebar ul li {
-  color: white; 
+  color: white;
 }
 
 .dark .sidebar ul li:hover,
@@ -419,14 +420,14 @@
 /* ============================ */
 /* Dark Mode for FAQ */
 .dark .faqItem {
-  background-color: #333; 
-  color: white; 
+  background-color: #333;
+  color: white;
   border: 1px solid #444;
 }
 
 .dark .faqItem:hover {
-  background-color: #444; 
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+  background-color: #444;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .dark .faqWrapper {
@@ -434,5 +435,5 @@
   padding-left: 15px;
   border-left: 3px solid #444;
   text-align: left;
-  color: white; 
+  color: white;
 }

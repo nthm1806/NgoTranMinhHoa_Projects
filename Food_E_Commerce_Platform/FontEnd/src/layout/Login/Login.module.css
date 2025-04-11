@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    /* Đảm bảo chiều cao tối thiểu là toàn bộ màn hình */
+    justify-content: center;
+    position: relative;
+}
+
+.loginBox {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.footerContainer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    padding: 10px;
+    background: #f8f8f8;
+}

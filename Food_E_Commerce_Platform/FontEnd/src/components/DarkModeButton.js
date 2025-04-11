@@ -7,7 +7,8 @@ const DarkModeButton = () => {
   return (
     <button
       className="mt-4 px-4 py-2 rounded-md transition-all duration-300 border focus:outline-none
-                 border-gray-600 dark:border-gray-300 bg-gray-200 dark:bg-gray-700 text-black dark:text-white"
+                 border-gray-600 dark:border-gray-300 bg-gray-200 dark:bg-gray-500 text-black dark:text-white"
+                 style={{width: 170, marginLeft: 20}}
       onClick={toggleTheme}
     >
       {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}

@@ -11,6 +11,7 @@ function OrderDetail() {
     const navigate = useNavigate();
     const location = useLocation();
     const { customer } = useCustomer();
+    const Rating = [1,2,3,4,5];
     const orderDetail = location.state || null;
     const [shop, setShop] = useState(null);
     const [shipper, setShipper] = useState(null);
@@ -99,9 +100,9 @@ function OrderDetail() {
       
     }
     const buyAgain = async()=>{
-      const selectCart = [{...buyOrder, Quantity : chooseQuantity,totalAmount: chooseQuantity * buyOrder.productPrice + 32000,}]
+      const selectCart = [{...buyOrder, Quantity : chooseQuantity,totalAmount: chooseQuantity * buyOrder.productPrice + 32000}]
       console.log(selectCart)
-      navigate('/OrderCheckOut',{state:selectCart})
+      navigate('/OrderCheckOut',{state:{selectCart}})
     }
   return (
     <div className={styles.page}>
@@ -113,7 +114,6 @@ function OrderDetail() {
               <p style={{color:'#8f8f8f'}}>Mô tả: {orderDetail.description}</p>
               <p>Loại sản phẩm : {orderDetail.productCategory}</p>
               <p>Cửa hàng: {shop ? shop.ShopName :''}</p>
-              <p> {shipper ?`Người giao hàng: ${shipper.FirstName} ${shipper.LastName}`: ''}</p>
               <p> {shipper ?`Người giao hàng: ${shipper.FirstName} ${shipper.LastName}`: ''}</p>
               <button onClick={()=>setReviewPopup(orderDetail)} >Đánh Giá</button>
                 <button className= {`${orderDetail.status === 'Chờ thanh toán' ? styles.hidden: ''}`} onClick={()=> chooseQuantityPopup(orderDetail)}>Mua Lại</button>
@@ -161,14 +161,9 @@ function OrderDetail() {
               <option value="shop">Cửa hàng</option>
             </select>
             <label>Chọn số sao (1 đến 5):</label>
-            <input
-              type="number"
-              name="rating"
-              value={formReview.rating}
-              onChange={handleChange}
-              min="1"
-              max="5"
-            />
+            {Rating.map((item,index)=>(
+              <span onClick={()=>handleChange({target:{name :"rating" ,value: item}})}>{formReview.rating > index ? '⭐' : '★'}</span>
+            ))}
             <label>Nhập đánh giá:</label>
             <textarea
               name="reviewText"

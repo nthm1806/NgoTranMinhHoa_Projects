@@ -14,6 +14,7 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #333;
 }
 
 /* Khu vực thông tin chi tiết */
@@ -26,25 +27,37 @@
 /* Nhãn (Label) */
 .requestDetails label {
     font-weight: bold;
+    color: #555;
 }
 
 /* Input & Textarea */
 .requestDetails input,
-.requestDetails textarea {
+.requestDetails textarea,
+.requestDetails select {
     width: 100%;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    transition: border 0.3s ease;
-    cursor: not-allowed;
+    transition: border 0.3s ease, background 0.3s ease;
 }
 
-/* Làm input trông giống như disable */
+/* Khi input có thể chỉnh sửa */
+.requestDetails input:not(:disabled),
+.requestDetails textarea:not(:disabled),
+.requestDetails select:not(:disabled) {
+    background-color: #fff;
+    border-color: #007bff;
+    cursor: text;
+}
+
+/* Khi input bị disabled */
 .requestDetails input:disabled,
-.requestDetails textarea:disabled {
+.requestDetails textarea:disabled,
+.requestDetails select:disabled {
     background-color: #e9ecef;
+    border-color: #ccc;
     cursor: not-allowed;
 }
 
@@ -65,6 +78,64 @@
 
 .backButton:hover {
     background-color: #0056b3;
+}
+
+/* Nút hành động (Chỉnh sửa, Lưu, Hủy, Xóa) */
+.actionButtons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.actionButtons button {
+    flex: 1;
+    margin: 5px;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Nút Chỉnh sửa */
+.editButton {
+    background-color: #ffc107;
+    color: white;
+}
+
+.editButton:hover {
+    background-color: #e0a800;
+}
+
+/* Nút Lưu */
+.saveButton {
+    background-color: #28a745;
+    color: white;
+}
+
+.saveButton:hover {
+    background-color: #218838;
+}
+
+/* Nút Hủy */
+.cancelButton {
+    background-color: #6c757d;
+    color: white;
+}
+
+.cancelButton:hover {
+    background-color: #5a6268;
+}
+
+/* Nút Xóa */
+.deleteButton {
+    background-color: #dc3545;
+    color: white;
+}
+
+.deleteButton:hover {
+    background-color: #c82333;
 }
 
 /* Trạng thái yêu cầu */

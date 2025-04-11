@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../../layout/Header/Header";
 import Footer from "../../layout/Footer/Footer";
 import Address from "../../components/address/Address";
 import styles from "./Cart.module.css";
+import Swal from "sweetalert2";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { useCart } from "../../globalContext/CartContext";
 
 function Cart() {
   const inforFullUser = localStorage.getItem("user");
@@ -15,12 +17,14 @@ function Cart() {
   const [selectedAll, setSelectedAll] = useState(false);
   const [newTotal, setNewTotal] = useState(0);
   const [address, setAddress] = useState({
-    AddressID: null, 
-    HouseAddress: "", 
+    AddressID: null,
+    HouseAddress: "",
     Area: ""
   });
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
+  const isDeletingRef = useRef(false);
+  const { fetchCartCount } = useCart();
 
   useEffect(() => {
     if (inforFullUser) {
@@ -29,56 +33,129 @@ function Cart() {
     }
   }, [inforFullUser]);
 
+
+  const fetchCart = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/api/Cart/cusID', { cusID: cusID });
+
+      const updatedCartItems = response.data.map(item => ({
+        ...item,
+        originalQuantity: item.productQuantity || 0,
+      }));
+
+      setCartItems(updatedCartItems);
+    } catch (error) {
+      console.error("Lỗi khi lấy giỏ hàng:", error);
+    }
+  };
+
   useEffect(() => {
     if (cusID) {
-      const fetchCart = async () => {
-        try {
-          const response = await axios.post('http://localhost:3001/api/Cart/cusID', { cusID: cusID });
-          console.log("Fetched Cart Data:", response.data);
-          await setCartItems(response.data);
-        } catch (error) {
-          console.error("Lỗi khi lấy giỏ hàng:", error);
-        }
-      };
       fetchCart();
+      fetchCartCount();
     }
-  }, [cusID])
+  }, [cusID]);
+
 
   useEffect(() => {
     console.log("Update address:", address);
   }, [address]);
 
-  const updateQuantity = async (cartID, amount) => {
-    setCartItems(prevItems =>
-      prevItems.map(item => {
-        if (item.cartID === cartID) {
-          const newQuantity = Math.max(1, Math.min(item.Quantity + amount, item.productQuantity));
-          const updatedProductQuantity = { ...item, Quantity: newQuantity };
-          return {
-            ...item,
-            Quantity: newQuantity,
-            newQuantity: updatedProductQuantity
-          };
+  const updateQuantity = async (cartID, cusID, productID, amount) => {
+    if (!cartID || !cusID || !productID) {
+      console.error("Lỗi: ID bị undefined!");
+      return;
+    }
+
+    let isExceedingStock = false;
+    let prevQuantity = cartItems.find(item => item.cartID === cartID)?.Quantity || 1;
+
+    const updatedCartItems = cartItems.map(item => {
+      if (item.cartID === cartID) {
+        const maxQuantity = item.productQuantity;
+        const newQuantity = item.Quantity + amount;
+
+        if (newQuantity > maxQuantity) {
+          isExceedingStock = true;
+          return item;
         }
-        return item;
-      })
-    );
+        return { ...item, Quantity: Math.max(0, newQuantity) };
+      }
+      return item;
+    });
+
+    if (isExceedingStock) {
+      Swal.fire({
+        title: "Vượt quá số lượng",
+        text: "Bạn đã đạt giới hạn số lượng sản phẩm trong kho!",
+        confirmButtonText: "OK"
+      });
+      return;
+    }
+
+    const newQuantity = updatedCartItems.find(item => item.cartID === cartID)?.Quantity;
+
+    if (newQuantity === 0) {
+      Swal.fire({
+        title: "Xóa sản phẩm",
+        text: "Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không?",
+        showCancelButton: true,
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+        reverseButtons: true
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await removeItem(cartID, false);
+          return;
+        } else {
+          const restoredCartItems = cartItems.map(item =>
+            item.cartID === cartID ? { ...item, Quantity: prevQuantity } : item
+          );
+          setCartItems(restoredCartItems);
+        }
+      });
+      return;
+    }
+
+    setCartItems(updatedCartItems);
 
     try {
-      await axios.put('http://localhost:3001/api/Cart/updateQuantity', { cartID, amount });
+      await axios.put('http://localhost:3001/api/Cart/updateQuantity', { cartID, cusID, productID, newQuantity });
     } catch (error) {
-      console.error(error);
+      console.error("Lỗi khi cập nhật số lượng:", error.response?.status, error.response?.data);
     }
   };
 
-  const removeItem = async (cartID) => {
+  const removeItem = async (cartID, showPopup = true) => {
+    if (isDeletingRef.current) return;
+    isDeletingRef.current = true;
+
+    if (showPopup) {
+      const result = await Swal.fire({
+        title: "Xóa sản phẩm",
+        text: "Bạn có muốn xóa sản phẩm này khỏi giỏ hàng không?",
+        showCancelButton: true,
+        confirmButtonText: "Xóa",
+        cancelButtonText: "Hủy",
+        reverseButtons: true
+      });
+      if (!result.isConfirmed) {
+        isDeletingRef.current = false;
+        return;
+      }
+    }
+
     try {
-      await axios.delete(`http://localhost:3001/api/Cart/deleteItem`, { data: { cartID } });
       setCartItems(prevItems => prevItems.filter(item => item.cartID !== cartID));
+      await axios.delete(`http://localhost:3001/api/Cart/deleteItem`, { data: { cartID } });
+      await fetchCartCount();
     } catch (error) {
       console.error(error);
+    } finally {
+      isDeletingRef.current = false;
     }
   };
+
   const handleSelectAll = () => {
     if (selectedAll) {
       setSelectedItems([]);
@@ -94,7 +171,7 @@ function Cart() {
       return;
     }
 
-    setSelectedItems(prevSelected => 
+    setSelectedItems(prevSelected =>
       prevSelected.includes(cartID)
         ? prevSelected.filter(id => id !== cartID)
         : [...prevSelected, cartID]
@@ -113,8 +190,9 @@ function Cart() {
       alert("Please select an address before checking out.");
       return;
     }
+    const selectAddress = address;
     const selectCart = await cartItems.filter((item) => selectedItems.includes(item.cartID));
-    navigate("/OrderCheckOut", { state: selectCart, address });
+    navigate("/OrderCheckOut", { state:{ selectCart, selectAddress }});
   };
 
   return (
@@ -168,7 +246,7 @@ function Cart() {
                       <span className={`${styles.item_name} ${theme === "dark" ? styles.darkText : ""}`}>
                         {item.productName}
                         <br />
-                        Số lượng trong kho: {item.productQuantity}
+                        Số lượng trong kho: {item.originalQuantity ? Math.max(item.originalQuantity - item.Quantity, 0) : 'Không xác định'}
                       </span>
                     </td>
                     <td className={styles.c2}>{item.ShopName}</td>
@@ -177,9 +255,15 @@ function Cart() {
                     </td>
                     <td className={styles.c4}>
                       <div className={styles.quantity_control}>
-                        <button className={`${styles.quantity_button} ${theme === "dark" ? styles.darkButton : ""}`} onClick={() => updateQuantity(item.cartID, -1)}>-</button>
-                        <span className={styles.quantity_value}>{item.Quantity}</span>
-                        <button className={`${styles.quantity_button} ${theme === "dark" ? styles.darkButton : ""}`} onClick={() => updateQuantity(item.cartID, 1)}>+</button>
+                        <button className={`${styles.quantity_button} ${theme === "dark" ? styles.darkButton : ""}`}
+                          onClick={() => updateQuantity(item.cartID, cusID, item.productID, -1)}>
+                          -
+                        </button>
+                        <span className={styles.quantity_value}>{item.Quantity ?? 1}</span>
+                        <button className={`${styles.quantity_button} ${theme === "dark" ? styles.darkButton : ""}`}
+                          onClick={() => updateQuantity(item.cartID, cusID, item.productID, 1)}>
+                          +
+                        </button>
                       </div>
                     </td>
                     <td className={styles.c5}>
@@ -197,7 +281,7 @@ function Cart() {
           </table>
           {cartItems.length > 0 && (
             <div className={`${styles.total} ${theme === "dark" ? styles.darkText : ""}`}>
-              <h3>Tổng: {newTotal.toLocaleString()} VNĐ</h3>
+              <h3>Tổng tiền thanh toán: {newTotal.toLocaleString()} VNĐ</h3>
               <button className={`${styles.checkout_button} ${theme === "dark" ? styles.darkButton : ""}`} onClick={handleCheckout}>Mua hàng</button>
             </div>
           )}

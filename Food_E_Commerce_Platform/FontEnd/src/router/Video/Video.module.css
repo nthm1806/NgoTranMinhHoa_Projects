@@ -1,0 +1,61 @@
+.videoContainer{
+    display: flex;
+    margin-top: 3vh;
+    justify-content: center;
+    width: 100vw;
+    height:90vh
+}
+
+.videoInner{
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  height:85vh;
+  button {
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 5vh;
+    height:5vh;
+    padding:0;
+    cursor: pointer;
+    img{
+      width: 5vh;
+      height: 5vh;
+    }
+  }
+}
+.choose{
+  background-color: #ff0000;
+}
+.changeVideo{
+  width: 7vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.arowTop{
+  transform: rotateZ(180deg);
+}
+.hidden{
+    display: none;
+}
+.video{
+    height: 85vh;
+    aspect-ratio: 9/16;
+    object-fit: cover;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+.functionVideo{
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 5vh;
+  margin-left: 1vh;
+  text-align: center;
+  div{
+    margin: 0.5vh 0;
+  }
+}

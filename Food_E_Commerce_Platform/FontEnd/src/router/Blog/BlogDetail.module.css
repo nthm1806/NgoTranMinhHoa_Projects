@@ -1,0 +1,229 @@
+.blogDetailWrapper {
+    width: 100%;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center; 
+}
+
+.topPage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.infoWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.category {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.author {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 12px;
+    text-align: left; 
+}
+
+.date {
+    font-size: 16px;
+    color: #666;
+    margin: 0;
+}
+
+.imageWrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.blogImage {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.shortDescription {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contentBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contentSection {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.backButton, .editButton {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.backButton {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.editButton {
+    background-color: #007bff;
+    color: white;
+}
+
+.backButton:hover {
+    background-color: #cc0000;
+}
+
+.editButton:hover {
+    background-color: #0056b3;
+}
+
+.noContent {
+    font-size: 16px;
+    color: #888;
+    text-align: center;
+}
+
+.interactionBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.likeButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    font-weight: bold;
+    border: 1px solid grey;
+    background-color: blue;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.likeButton:hover {
+    background-color: #007bff;
+}
+
+.commentTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.commentInline {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.commentInput {
+    max-width: 100%;
+    height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    resize: vertical;
+    font: 1em sans-serif;
+}
+
+.commentList {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.commentItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.commentActions {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.editComment {
+    margin-right: 16px;
+    color: #007bff;
+}
+
+.deleteComment {
+    color: #ff4d4d;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.commentButton {
+    width: 80px;
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}

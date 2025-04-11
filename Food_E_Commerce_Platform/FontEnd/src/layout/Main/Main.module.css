@@ -1,115 +1,161 @@
-.block_main{
-    width: 85vw;
-    display: flex;
-    flex-direction: column;
+.block_main {
+  width: 85vw;
+  display: flex;
+  flex-direction: column;
 }
 
-.bar_one{
-    display: flex;
-    background: #ffffff;
-    margin-top: 4vh;
-    font-size: 1.5vw;
-    font-weight: 600;
-    padding-left: 1vw;
-    padding-bottom: 1vh;
-    border-bottom: 2px solid #eee;    
+.bar_one {
+  display: flex;
+  background: #ffffff;
+  margin-top: 4vh;
+  font-size: 1.5vw;
+  font-weight: 600;
+  padding-left: 1vw;
+  padding-bottom: 1vh;
+  border-bottom: 2px solid #eee;
+  position: relative;
+}
+.videoContainer {
+  width: 85vw;
+  justify-content: space-between;
+  height: 37vw;
+  display: flex;
+}
+.video {
+  width: 20vw;
+  height: 35.5vw;
+  border-radius: 20px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 85vw;
+  height: 90vh;
 }
 
-.wrapper{
-    display: flex;
-    flex-direction: column;
-    width: 85vw;
-    height: 90vh;
+.options {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 85vw;
+  height: 10vh;
+  background: black;
+  padding-bottom: 0.5vw;
+  margin-bottom: 1vw;
+  overflow-x: scroll;
 }
 
-.options{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 85vw;
-    height: 10vh;
-    background: black;
-    padding-bottom: 0.5vw;
-    margin-bottom: 1vw;
-    overflow-x: scroll;
+.items_options {
+  display: flex;
+  justify-content: center;
+  width: 10vw;
+  min-height: 2vh;
+  padding: 0.3vw 0;
+  color: white;
 
-}
-
-.items_options{
-    display: flex;
-    justify-content: center;
-    width :10vw;
-    min-height:  2vh;
-    padding: 0.3vw 0;
-    color: white;
-
-    &:hover{
-        cursor: pointer;
-        border-bottom: 2px solid white;
-    }
-}
-
-.items_options.active{
+  &:hover {
+    cursor: pointer;
     border-bottom: 2px solid white;
+  }
 }
 
-.showProducts{
-    display: grid;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 5vh;
-    height: 80vh;
-    grid-template-columns: repeat(4,1fr);
+.items_options.active {
+  border-bottom: 2px solid white;
 }
 
-.items_showProducts{
-    display: flex;
-    flex-direction: column;
-    width: 18vw;
-    height: 30vh;
-    background: white;
-    justify-content: space-around;
-    align-items: center;
-    padding-top: 1vw;
-    padding-bottom: 0.5vw;
-    font-size: 1vw;
-    font-weight: 600;
-    border-radius: 20px;
+.showProducts {
+  display: grid;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5vh;
+  height: 80vh;
+  grid-template-columns: repeat(4, 1fr);
 }
 
-.img{
-    display: flex;
-    width: 15vw;
-    height: 16vh;
-    border-radius: 10px;
-    margin-bottom: 0.5vw;
+.items_showProducts {
+  display: flex;
+  flex-direction: column;
+  width: 18vw;
+  height: 30vh;
+  background: white;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 1vw;
+  padding-bottom: 0.5vw;
+  font-size: 1vw;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+.img {
+  display: flex;
+  width: 15vw;
+  height: 16vh;
+  border-radius: 10px;
+  margin-bottom: 0.5vw;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 2vh;
+  display: flex;
+  justify-content: center;
+  margin-top: 2vh;
 }
-  
+
 .pageButton {
-    border: none;
-    background: #eee;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 10px;
+  border: none;
+  background: #4953e6;
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
 }
-  
+
 .pageButton:hover {
-    background: #39e113;
-    color: black;
+  background: #39e113;
+  color: black;
 }
-  
+
 .activePage {
-    background: red;
-    color: white;
-    border: none;
+  background: red;
+  color: white;
+  border: none;
 }
-  
+
+.popup_overlay {
+  position: fixed;
+  top: 0vh;
+  left: 0vw;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup {
+  background-color: white;
+  padding: 5vh;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1vw;
+  font-weight: bold;
+}
+
+.close_btn {
+  position: fixed;
+  top: 40vh;
+  right: 35vw;
+  cursor: pointer;
+  font-size: 20px;
+  color: #888;
+}

@@ -6,12 +6,12 @@
     border-radius: 10px;
     display: flex;
     justify-content: center;
-
+    margin-top: 15px;
     input {
-        height: 5vh;
+        padding: 8px 10px;
         width: 35vw;
         color: black;
-        font-size: 1.5rem;
+        font-size: 14px;
         border: none;
         caret-color: var(--primary);
         outline: none;
@@ -25,21 +25,18 @@
 }
 
 .fhs_button_search_header{
-    position:absolute;
-    width: 4vw;
-    height: 4vh;
+    /* position:absolute; */
+    width: 50px;
+    height: 100%;
     right: 0.2vw;
-    top: 42%;
-    transform: translateY(-50%);
-    background-color: red;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    &:hover{
+    padding-top: 5px;
+    /* &:hover{
         background-color: rgb(8, 8, 225);
-    }
+    } */
 }
 
 .fhs_button_search_header img{

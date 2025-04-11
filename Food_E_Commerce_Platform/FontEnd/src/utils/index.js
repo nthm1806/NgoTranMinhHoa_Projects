@@ -14,3 +14,15 @@ export const getLocalStorage = (key) => {
       return numToString2.replace(/\.0+$|(\.\d*[^0])0+$/, "$1"); // '1,700.00'-> '1,700' or
     } else return 0;
   }
+
+ export function formatDateTime(dateString) {
+    const now = new Date(dateString);
+    const dd = String(now.getDate()).padStart(2, '0');
+    const mm = String(now.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+    const yyyy = now.getFullYear();
+    const hh = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+
+    return `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss}`;
+}

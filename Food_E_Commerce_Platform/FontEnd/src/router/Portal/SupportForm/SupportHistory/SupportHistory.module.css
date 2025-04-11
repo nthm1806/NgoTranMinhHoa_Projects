@@ -16,7 +16,7 @@
     background: white;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .historyTitle {
@@ -85,4 +85,63 @@
     max-width: 1200px;
     margin-left: 200px;
     /* Dịch sang phải bằng khoảng cách mong muốn */
+}
+
+.statusPending {
+    background-color: #ffeb99;
+    /* Màu vàng nhạt */
+    color: #856404;
+    /* Màu nâu đậm */
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.statusInProgress {
+    background-color: #cce5ff;
+    /* Màu xanh nhạt */
+    color: #004085;
+    /* Màu xanh đậm */
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.statusResolved {
+    background-color: #d4edda;
+    /* Màu xanh lá nhạt */
+    color: #155724;
+    /* Màu xanh lá đậm */
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+/* ============================ */
+/* Điều chỉnh danh sách hiển thị */
+.requestList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.requestItem {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background: #f9f9f9;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.requestItem:hover {
+    background: #eef5ff;
+}
+
+/* Căn chỉnh trạng thái để nổi bật hơn */
+.requestItem .requestStatus {
+    margin-top: 5px;
 }

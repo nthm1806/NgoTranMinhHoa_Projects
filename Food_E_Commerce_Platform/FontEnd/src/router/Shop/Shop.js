@@ -3,6 +3,8 @@ import Footer from "../../layout/Footer/Footer";
 import Background from "../../layout/Background/Background";
 import Shop from "../../layout/Shop/Shop";
 import { GlobalProvider } from "../../globalContext/GlobalContext";
+import Chatbot from "../../components/chatbox/ChatBox";
+
 
 function Home() {
   return (
@@ -10,7 +12,8 @@ function Home() {
       <GlobalProvider>
         <Header />
         <Background>
-            <Shop></Shop>
+          <Shop></Shop>
+          <Chatbot></Chatbot>
           <Footer></Footer>
         </Background>
       </GlobalProvider>

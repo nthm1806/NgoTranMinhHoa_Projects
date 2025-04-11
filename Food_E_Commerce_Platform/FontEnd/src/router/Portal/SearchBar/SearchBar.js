@@ -40,7 +40,7 @@ function SearchBar() {
 
   const handleSearch = () => {
     if (query.trim() === "") {
-      alert("⚠ Vui lòng nhập từ khóa trước khi tìm kiếm!");
+      alert(" Vui lòng nhập từ khóa trước khi tìm kiếm!");
       return;
     }
     navigate(`/searchPortal?q=${query}`);

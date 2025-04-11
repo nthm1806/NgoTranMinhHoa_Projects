@@ -1,9 +1,8 @@
-.storeVoucher{
-    flex-grow: 1;
-    background-color: white;
-    padding:0 20px;
-}
-button{
+.storeVoucher {
+  flex-grow: 1;
+  background-color: white;
+  padding: 0 20px;
+  button {
     margin-left: 20px;
     color: red;
     border: 1.5px solid red;
@@ -16,68 +15,70 @@ button{
     cursor: pointer;
     margin: 3px;
   }
-.searchVoucherDiv{
-    height: 10vh;
+}
+
+.searchVoucherDiv {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(218, 218, 218);
+  h2 {
+    font-weight: 400;
+    padding-right: 20px;
+  }
+  div {
+    width: 50%;
+  }
+  input {
+    width: 75%;
+    padding: 10px;
+  }
+  button {
+    padding: 10px;
+  }
+}
+.typeVoucherList {
+  padding-left: 20px;
+  padding-top: 10px;
+  font-size: large;
+  span {
+    padding-bottom: 10px;
+    cursor: pointer;
+    width: 7vw;
+    display: inline-block;
+    text-align: center;
+  }
+}
+.chooseType {
+  color: rgb(255, 145, 2);
+  border-bottom: 2px solid rgb(255, 145, 2);
+}
+.ListVoucher {
+  display: grid;
+  padding: 20px 0;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+  row-gap: 10px;
+}
+.voucherDetail {
+  width: 100;
+  display: flex;
+  height: 10vh;
+  background-color: rgb(236, 236, 236);
+  img {
+    height: 100%;
+  }
+  p {
+    margin: 0;
+    font-size: 1vw;
+  }
+  div {
+    padding-left: 20px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(218, 218, 218);
-    h2{
-        font-weight: 400;
-        padding-right: 20px ;
-    }
-    div{
-        width: 50%;
-    }
-    input{
-        width: 75%;
-        padding:10px;
-    }
-    button{
-        padding:10px;
-    }
-}
-.typeVoucherList{
-    padding-left:20px;
-    padding-top:10px ;
-    font-size: large;
-    span{
-        padding-bottom: 10px;
-        cursor: pointer;
-        width: 7vw;
-        display: inline-block;
-        text-align: center;
-    }
-}
-.chooseType{
-    color: rgb(255, 145, 2);
-    border-bottom: 2px solid rgb(255, 145, 2);
-}
-.ListVoucher{
-    display: grid;
-    padding: 20px 0 ;
-    grid-template-columns: repeat(2,1fr);
-    column-gap: 20px;
-    row-gap: 10px;
-}
-.voucherDetail{
-    width: 100;
-    display: flex;
-    height: 10vh;
-    background-color: rgb(236, 236, 236);
-    img{
-        height: 100%;
-    }
-    p{
-        margin:0;
-        font-size:1vw
-    }
-    div{
-        padding-left: 20px;
-        display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     max-width: 100%;
     font-size: 1em;
-    }
+  }
 }

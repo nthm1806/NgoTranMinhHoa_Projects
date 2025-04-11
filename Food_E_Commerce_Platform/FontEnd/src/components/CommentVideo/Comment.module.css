@@ -1,0 +1,84 @@
+
+  
+  .comment {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    width:100%
+  }
+  
+  .commentInner{
+    width: calc(100% - 50px)
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .readMore {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 5px !important;
+  }
+  .readMore:hover {
+    text-decoration: underline;
+  }
+  .commentContent {
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    strong {
+        display: block;
+        margin-bottom: 5px;
+      }
+      span {
+        margin: 5px 0;
+      }
+  }
+  
+  
+  .commentActions {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: blue;
+    cursor: pointer;
+    p{
+        margin: 0;
+    }
+  }
+  
+  .aply{
+    width: 100%;
+    height: 15vh;
+    overflow: hidden;
+    position: relative;
+    textarea{
+        border: 1px solid rgb(170, 170, 170);
+        outline: none;
+        border-radius: 10px;
+        width: calc( 100% - 12px);
+        height: 10vh;
+        resize: none;
+        padding: 5px;
+    }
+    button{
+        position: absolute;
+        right:0;
+        bottom: 0;
+        height:4vh;
+        font-size: small;
+        padding:0 10px;
+        border: 2px solid black;
+        margin :0;
+    }
+  }
+  .choose{
+    color:red
+  }

@@ -1,16 +1,18 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Order.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Header from "../../layout/Header/Header";
 import Footer from "../../layout/Footer/Footer";
-import Address from '../../components/address/Address'
+import Address from "../../components/address/Address";
+import { useAuth } from "../../globalContext/AuthContext";
 
 function Order() {
+  const { customerID } = useAuth();
   const location = useLocation();
   const inforFullUser = localStorage.getItem("user");
-  const[cusID,setCusID] = useState();
-  const selectCart = location.state || null;
+  const [cusID, setCusID] = useState();
+  const { selectCart, selectAddress } = location.state || null;
   const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
   const [voucher, setVoucher] = useState(false);
@@ -31,39 +33,76 @@ function Order() {
   const [indexList, setIndexList] = useState(0);
   const [listProducts, setListProducts] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [address,setAddress] = useState();
-  const [url,setUrl] = useState('/');
+  const [address, setAddress] = useState(selectAddress);
+  const [customerCoin, setCustomerCoin] = useState(0);
+  const refundCoin = Math.floor(totalPrice / 1000);
+
+  const fetchCustomerCoin = async () => {
+    if (!customerID) return;
+
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/customers/${customerID}`
+      );
+      setCustomerCoin(response.data.xu);
+    } catch (error) {
+      console.error("❌ Lỗi khi lấy số xu:", error);
+    }
+  };
+
+  // 🔹 Gọi API khi `customerID` thay đổi
+  useEffect(() => {
+    if (customerID) {
+      fetchCustomerCoin();
+    }
+  }, [customerID]);
+
+  const setCoin = async (totalPrice) => {
+    if (!customerID) {
+      alert("❌ Không xác định được khách hàng!");
+      return;
+    }
+    try {
+      await axios.put(`http://localhost:3001/customers/${customerID}`, {
+        xu: customerCoin + refundCoin,
+      });
+      setCustomerCoin((prev) => prev + refundCoin);
+    } catch (error) {
+      console.error("❌ Lỗi khi cập nhật xu:", error);
+      alert("❌ Lỗi khi cập nhật xu!");
+    }
+  };
 
   useEffect(() => {
-    console.log(selectCart)
-    if(!selectCart || selectCart === null || selectCart.length === 0 ){
-      navigate('/');
-    }else{
+    console.log(selectAddress);
+    if (!selectCart || selectCart === null || selectCart.length === 0) {
+      navigate("/");
+    } else {
       const cus = JSON.parse(inforFullUser);
-      setCusID(cus.id)
+      setCusID(cus.id);
     }
   }, []);
-  useEffect(()=>{
+  useEffect(() => {
     getProduct();
     getFavorite();
-  },[cusID])
+  }, [cusID]);
   async function getFavorite() {
     const response = await axios.post(
       "http://localhost:3001/api/Products/getFavorite",
       { cusID }
     );
-    await setFavorites(response.data.slice(0,5));
+    await setFavorites(response.data.slice(0, 5));
   }
   async function getProduct() {
-    if(selectCart !== null){
-      let pages = []; 
-    for (let i = 0; i < selectCart.length; i += 3) {
-      pages.push(selectCart.slice(i, i + 3));
-    }
-    await setListProducts(pages);
+    if (selectCart !== null) {
+      let pages = [];
+      for (let i = 0; i < selectCart.length; i += 3) {
+        pages.push(selectCart.slice(i, i + 3));
+      }
+      await setListProducts(pages);
     }
   }
-  useEffect(() => { 
+  useEffect(() => {
     if (listProducts.length > 0) {
       changeIndex(indexList);
     }
@@ -73,8 +112,11 @@ function Order() {
     await setProducts(listProducts[value]);
   };
   useEffect(() => {
-    if(products.length !== 0){
-      let newTotal = selectCart.reduce((sum, item) => sum + item.totalAmount, 0);
+    if (products.length !== 0) {
+      let newTotal = selectCart.reduce(
+        (sum, item) => sum + item.totalAmount,
+        0
+      );
       setTotalPrice(newTotal);
     }
   }, [products]);
@@ -87,7 +129,7 @@ function Order() {
       "http://localhost:3001/api/Voucher/getVoucherByCusID",
       { cusID, totalPrice }
     );
-    if(selectCart !== null && selectCart.length > 0){
+    if (selectCart !== null && selectCart.length > 0) {
       const shop = selectCart.map((item) => {
         return {
           shopID: item.ShopID,
@@ -104,7 +146,7 @@ function Order() {
   }
 
   useEffect(() => {
-    if(voucherShop.length !== 0){
+    if (voucherShop.length !== 0) {
       updateVoucherShop();
     }
   }, [voucherShop]);
@@ -127,7 +169,7 @@ function Order() {
   }
 
   useEffect(() => {
-    if(totalAmountProduct.length !== 0){
+    if (totalAmountProduct.length !== 0) {
       updateVoucherAll();
     }
   }, [totalAmountProduct]);
@@ -178,9 +220,9 @@ function Order() {
     await setTypeVoucher(-1);
     await setVoucher(!voucher);
   }
-  useEffect(()=>{
+  useEffect(() => {
     console.log(products);
-  },[])
+  }, []);
   async function handleChooseVoucher(voucher) {
     let feeShip;
     let price;
@@ -218,39 +260,36 @@ function Order() {
   }
   async function checkout() {
     const totalPayment = totalPrice - chooseVoucher.Discount;
-      const OrderInfor = [];
-      selectCart.map((item) =>
-        OrderInfor.push({
-          feeShip: item.feeShip,
-          productID: item.productID,
-          Quantity: item.Quantity,
-          CartDetailID: item.cartID,
-          distance: Math.random() * 6,
-        })
-      );
-      const voucherChoose = [...bestVoucherShop, chooseVoucher];
+    const OrderInfor = [];
+    console.log("selectCart: ", selectCart);
+    selectCart.map((item) =>
+      OrderInfor.push({
+        feeShip: item.feeShip,
+        productID: item.productID,
+        productImg: item.ProductImg,
+        productCategory: item.productCategory,
+        Quantity: item.Quantity,
+        CartDetailID: item.cartID || null,
+        distance: Math.random() * 6,
+      })
+    );
+    const voucherChoose = [...bestVoucherShop, chooseVoucher];
     if (paymentMethod === "Trả trước") {
-      const response = await axios.post('http://localhost:3001/api/Order/prepay',{  address, OrderInfor, voucherChoose, totalPayment, cusID ,url});
+      const response = await axios.post(
+        "http://localhost:3001/api/Order/prepay",
+        { address, OrderInfor, voucherChoose, totalPayment, cusID }
+      );
       window.location.href = response.data.payUrl;
     } else {
       const response = await axios.post(
         "http://localhost:3001/api/Order/CheckOut",
-        {address, OrderInfor, voucherChoose, totalPayment, cusID }
+        { address, OrderInfor, voucherChoose, totalPayment, cusID }
       );
       if (response.status === 200) {
         await setStatus(true);
+        setCoin(totalPrice);
       } else await setStatus(false);
       await setMess(true);
-    }
-  }
-  function checkOutSuccess() {
-    setMess(false);
-    navigate(url);
-  }
-  async function changeUrl(item){
-    const result = window.confirm(`Hãy thực hiện xong việc checkout! Bạn có muốn chuyển sang trang sản phầm ${item.ProductName} sau khi xong không ?`)
-    if(result){
-      await setUrl(`/product/${item.ProductID}`)
     }
   }
   return (
@@ -263,125 +302,138 @@ function Order() {
         <a>Order Check Out</a>
       </div>
       <div className={styles.address}>
-        <Address setInfor={setAddress}></Address>
+        <Address setInfor={setAddress} infor={address}></Address>
       </div>
-      
-      <div style={{display:'flex',width:'82%',justifyContent:'space-between',marginBottom:'10px'}}>
-      <div className={styles.content}>
-        {/* BẢNG PRODUCT */}
-        <div className={styles.OrderDetail}>
-          <table style={{ padding: "20px 20px 0", backgroundColor: "white" }}>
-            <tr>
-              <th style={{ width: "35%" }}>Sản phẩm</th>
-              <th className={styles.t2}>Giá thành</th>
-              <th className={styles.t3}>Số lượng</th>
-              <th className={styles.t4}>Phí vận chuyển</th>
-              <th className={styles.t5}>Tổng tiền</th>
-            </tr>
-          </table>
-          {products.length !== 0 &&
-            products.map((item, index) => (
-              <div className={styles.product}>
-                <table>
-                  <tr>
-                    <td className={styles.tdFirst}>
-                      <img alt="" src={item.productImg} />
-                      <p>
-                        {item.productName}
-                        <br /> <span>{item.productCategory}</span>
-                      </p>
-                    </td>
-                    <td className={styles.t2}>
-                      {Number(item.productPrice).toLocaleString("vi-VI", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
-                    </td>
-                    <td className={styles.t3}>{item.Quantity}</td>
-                    <td className={styles.t4}>
-                      {Number(item.feeShip).toLocaleString("vi-VI", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
-                    </td>
-                    <td className={styles.t5}>
-                      {Number(item.totalAmount).toLocaleString("vi-VI", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
-                    </td>
-                  </tr>
-                </table>
-                <div className={styles.shopVoucher}>
-                  <div
-                    style={{
-                      padding: "0 20px 0 0",
-                      borderRight: "2px solid rgb(175, 175, 175)",
-                    }}
-                  >
-                    <button
-                      onClick={() => selectVoucherShop(3 * indexList + index)}
+
+      <div
+        style={{
+          display: "flex",
+          width: "82%",
+          justifyContent: "space-between",
+          marginBottom: "10px",
+        }}
+      >
+        <div className={styles.content}>
+          {/* BẢNG PRODUCT */}
+          <div className={styles.OrderDetail}>
+            <table style={{ padding: "20px 20px 0", backgroundColor: "white" }}>
+              <tr>
+                <th style={{ width: "35%" }}>Sản phẩm</th>
+                <th className={styles.t2}>Giá thành</th>
+                <th className={styles.t3}>Số lượng</th>
+                <th className={styles.t4}>Phí vận chuyển</th>
+                <th className={styles.t5}>Tổng tiền</th>
+              </tr>
+            </table>
+            {products.length !== 0 &&
+              products.map((item, index) => (
+                <div className={styles.product}>
+                  <table>
+                    <tr>
+                      <td className={styles.tdFirst}>
+                        <img alt="" src={item.productImg} />
+                        <p>
+                          {item.productName}
+                          <br /> <span>{item.productCategory}</span>
+                        </p>
+                      </td>
+                      <td className={styles.t2}>
+                        {Number(item.productPrice).toLocaleString("vi-VI", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </td>
+                      <td className={styles.t3}>{item.Quantity}</td>
+                      <td className={styles.t4}>
+                        {Number(item.feeShip).toLocaleString("vi-VI", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </td>
+                      <td className={styles.t5}>
+                        {Number(item.totalAmount).toLocaleString("vi-VI", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </td>
+                    </tr>
+                  </table>
+                  <div className={styles.shopVoucher}>
+                    <div
+                      style={{
+                        padding: "0 20px 0 0",
+                        borderRight: "2px solid rgb(175, 175, 175)",
+                      }}
                     >
-                      Chọn mã giảm giá của cửa hàng
-                    </button>
-                    <p>
-                      {Number(
-                        bestVoucherShop[3 * indexList + index]
-                          ? bestVoucherShop[3 * indexList + index].Discount
-                          : 0
-                      ).toLocaleString("vi-VI", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
-                    </p>
-                  </div>
-                  <div style={{ paddingLeft: " 20px" }}>
-                    <p>Tổng tiền sản phẩm</p>
-                    <p style={{ color: "red", fontWeight: "500" }}>
-                      {Number(
-                        totalAmountProduct[3 * indexList +index]
-                          ? totalAmountProduct[3 * indexList +index]
-                          : 0
-                      ).toLocaleString("vi-VI", {
-                        style: "currency",
-                        currency: "VND",
-                      })}
-                    </p>
+                      <button
+                        onClick={() => selectVoucherShop(3 * indexList + index)}
+                      >
+                        Chọn mã giảm giá của cửa hàng
+                      </button>
+                      <p>
+                        {Number(
+                          bestVoucherShop[3 * indexList + index]
+                            ? bestVoucherShop[3 * indexList + index].Discount
+                            : 0
+                        ).toLocaleString("vi-VI", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </p>
+                    </div>
+                    <div style={{ paddingLeft: " 20px" }}>
+                      <p>Tổng tiền sản phẩm</p>
+                      <p style={{ color: "red", fontWeight: "500" }}>
+                        {Number(
+                          totalAmountProduct[3 * indexList + index]
+                            ? totalAmountProduct[3 * indexList + index]
+                            : 0
+                        ).toLocaleString("vi-VI", {
+                          style: "currency",
+                          currency: "VND",
+                        })}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-        </div>
-        <div className={styles.pageControll}>
-          <span
-            className={indexList === 0 ? styles.hidden : ""}
-            onClick={() => changeIndex(indexList - 1)}
-          >
-            &lt;
-          </span>
-          {listProducts.map((item, index) => (
+              ))}
+          </div>
+          <div className={styles.pageControll}>
             <span
-              className={`${styles.indexList} ${
-                index === indexList ? styles.choosePage : ""
-              } `}
-              onClick={() => changeIndex(index)}
+              className={indexList === 0 ? styles.hidden : ""}
+              onClick={() => changeIndex(indexList - 1)}
             >
-              {index + 1}
+              &lt;
             </span>
-          ))}
-          <span
-            className={
-              indexList === listProducts.length - 1 ? styles.hidden : ""
-            }
-            onClick={() => changeIndex(indexList + 1)}
-          >
-            &gt;
-          </span>
-        </div>
-        {/* VOUCHER  */}
-        <div className={styles.VoucherandTotal}>
-            <div style={{display:'flex',flexDirection:'column',alignItems:'start'}}>
-              <div style={{display:'flex',alignItems:'center'}}>
+            {listProducts.map((item, index) => (
+              <span
+                className={`${styles.indexList} ${
+                  index === indexList ? styles.choosePage : ""
+                } `}
+                onClick={() => changeIndex(index)}
+              >
+                {index + 1}
+              </span>
+            ))}
+            <span
+              className={
+                indexList === listProducts.length - 1 ? styles.hidden : ""
+              }
+              onClick={() => changeIndex(indexList + 1)}
+            >
+              &gt;
+            </span>
+          </div>
+          {/* VOUCHER  */}
+          <div className={styles.VoucherandTotal}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "start",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
                 <img alt="" src="./voucherIcon.png" />
                 <h2>Mã giảm giá</h2>
               </div>
@@ -389,19 +441,32 @@ function Order() {
               <p>Giảm giá</p>
               <p>Tổng thanh toán</p>
             </div>
-            <div style={{display:'flex',flexDirection:'column',alignItems:'end'}}>
-              <button onClick={() => selectVoucherAll()}>Chọn mã giảm giá </button>
-              <select onChange={(event) => setPaymentMethod(event.target.value)}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "end",
+              }}
+            >
+              <button onClick={() => selectVoucherAll()}>
+                Chọn mã giảm giá{" "}
+              </button>
+              <select
+                onChange={(event) => setPaymentMethod(event.target.value)}
+              >
                 <option value="Trả sau">Trả sau</option>
                 <option value="Trả trước">Trả trước</option>
               </select>
-              <p>{chooseVoucher
+              <p>
+                {chooseVoucher
                   ? Number(chooseVoucher.Discount).toLocaleString("vi-VI", {
                       style: "currency",
                       currency: "VND",
                     })
-                  : ""}</p>
-                  <p>{chooseVoucher
+                  : ""}
+              </p>
+              <p>
+                {chooseVoucher
                   ? Number(totalPrice - chooseVoucher.Discount).toLocaleString(
                       "vi-VI",
                       {
@@ -409,21 +474,28 @@ function Order() {
                         currency: "VND",
                       }
                     )
-                  : ""}</p>
-                  <button
-                    onClick={() => checkout()}
-                    style={{padding: "10px",border: "2px solid rgb(175, 175, 175)",}}
-                  >
-                    Xác nhận mua
-                  </button>
+                  : ""}
+              </p>
+              <button
+                onClick={() => checkout()}
+                style={{
+                  padding: "10px",
+                  border: "2px solid rgb(175, 175, 175)",
+                }}
+              >
+                Xác nhận mua
+              </button>
             </div>
+          </div>
         </div>
-      </div>
-      <div className={styles.favorite}>
+        <div className={styles.favorite}>
           <h2>Các sản phẩm bạn thích </h2>
           {favorites.length !== 0 ? (
             favorites.map((item) => (
-              <div className={styles.favoriteItem} onClick={()=>changeUrl(item)}>
+              <div
+                className={styles.favoriteItem}
+                onClick={() => navigate(`/product/${item.ProductID}`)}
+              >
                 <img alt="" src={item.ProductImg} />
                 <div>
                   <p>{item.ProductName}</p>
@@ -486,7 +558,7 @@ function Order() {
       )}
       {mess ? (
         <div
-          onClick={() => checkOutSuccess()}
+          onClick={() => navigate("/")}
           style={{
             width: "100vw",
             height: "100vh",
@@ -506,17 +578,31 @@ function Order() {
               width: "40vw",
               height: "30vh",
               display: "flex",
+              flexDirection: "column", // 🔹 Căn theo chiều dọc
               justifyContent: "center",
               alignItems: "center",
+              textAlign: "center", // 🔹 Căn giữa nội dung
             }}
           >
             <div>{status ? "CHECKOUT THÀNH CÔNG" : "CHECKOUT THẤT BẠI"}</div>
+
+            {status && refundCoin > 0 && (
+              <div
+                style={{
+                  marginTop: "10px",
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                }}
+              >
+                🎉 Bạn nhận được{" "}
+                <span style={{ color: "#FFD700" }}>{refundCoin}</span> xu!
+              </div>
+            )}
           </div>
         </div>
       ) : (
         ""
       )}
-
       <Footer></Footer>
     </div>
   );

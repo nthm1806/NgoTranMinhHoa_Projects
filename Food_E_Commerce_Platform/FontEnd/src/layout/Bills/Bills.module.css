@@ -1,0 +1,130 @@
+.container {
+  margin: 4vh 0vw;
+  width: 85vw;
+  height: 80vh;
+  padding: 2vw;
+  background-color: #fff;
+  overflow-y: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tab_menu {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2vh;
+}
+
+.tab_item {
+  padding: 1vw 2vw;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.5vw;
+  font-weight: bold;
+  margin: 0 1vw;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.tab_item:hover {
+  background-color: #f0f0f0;
+}
+
+.tab_item.active {
+  background-color: #ff4500;
+  color: white;
+}
+
+.sort_search_options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.sort_options, .search_options {
+  display: flex;
+  align-items: center;
+}
+
+.sort_options select, .search_select input, .search_select select {
+  padding: 5px;
+  font-size: 1.2vw;
+  margin-left: 1vw;
+  border-radius: 5px;
+}
+
+.search_select input {
+  width: 30vw;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.search_select select {
+  padding: 5px;
+}
+
+
+.bill_item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5vw;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  transition: transform 0.2s;
+  margin-bottom: 2vh;
+}
+
+.bill_item:hover {
+  transform: scale(1.02);
+}
+
+.bill_item.pending {
+  background-color: #ffe2e2; 
+}
+
+.bill_item.paid {
+  background-color: #d1f7d1; 
+}
+
+.provider_img {
+  width: 10vw;
+  height: 15vh;
+  margin-right: 1vw;
+}
+
+.bill_details {
+  flex-grow: 1;
+}
+
+.bill_name {
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+.bill_amount,
+.bill_due_date {
+  font-size: 1.2vw;
+}
+
+.pay_btn {
+  background-color: #ff4500;
+  color: white;
+  padding: 1vw 2vw;
+  font-size: 1vw;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pay_btn:hover {
+  background-color: #e63946;
+}
+
+.paid_status {
+  font-size: 1.2vw;
+  color: #4caf50;
+  font-weight: bold;
+}

@@ -1,19 +1,31 @@
-.container-layout{
-    width: 100vw;
-    height: auto;
-    background-color: #f2f2f2;
+.container-layout {
+  width: 100vw;
+  height: auto;
+  background-color: #f2f2f2;
 }
 
-.header-layout{
-    position: fixed;
-    width: 100vw;
-    height: 86px;
-    z-index: 999;
-    background-color: white;
-
+.header-layout {
+  position: fixed;
+  width: 100vw;
+  height: 100px;
+  z-index: 999;
+  background-color: white;
 }
 
-.body-layout{
-    padding-top: 75px;
-    padding-bottom: 100px;
+.body-layout {
+  padding-top: 120px;
+  padding-bottom: 50px;
+}
+
+.container-list {
+  margin: 0 auto;
+  min-height: calc(100vh - 220px);
+  overflow-y: auto;
+}
+
+.list-product {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }

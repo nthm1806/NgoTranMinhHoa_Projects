@@ -7,6 +7,7 @@ import { Avatar, List, Space } from 'antd';
 import React from 'react';
 import SlideDoAn from "./SlideDoAn";
 import { formatMoney } from "../../utils";
+import styles from './styles.module.css';
 
 
 
@@ -51,6 +52,7 @@ export const ListComboProduct = () => {
         <LayoutCommon>
             <div>
                 <List
+                    className={styles.listContainer}
                     itemLayout="vertical"
                     size="large"
                     pagination={{
@@ -58,7 +60,7 @@ export const ListComboProduct = () => {
                             setFilterValue(pre => ({ ...pre, pageIndex: page }))
                         },
                         pageSize: 12,
-                        style:{
+                        style: {
                             marginRight: 50
                         }
                     }}
@@ -84,14 +86,15 @@ export const ListComboProduct = () => {
                             
                         >
                             <List.Item.Meta
-                            style={{width: '100%'}}
+                                style={{ width: '100%' }}
                                 avatar={<Avatar src={item.avatar} />}
                                 title={<a href={item.href}>{item.title}</a>}
                                 description={<div>
-                                    <span style={{marginRight: 30}}>Giá: <strong>{formatMoney(item.Price)} VND</strong></span>
-                                    <span style={{marginRight: 30}}>Giảm giá: <strong>{formatMoney(item.Discount || 0)} VND</strong></span>
-                                    <span style={{marginRight: 30}}>Số lượng: <strong>{formatMoney(item.StockQuantity || 0)} </strong></span>
-                                    <span style={{marginRight: 30}}>Đã bán: <strong>{formatMoney(item.SoldQuantity || 0)} </strong></span>
+                                    <span style={{ marginRight: 30 }}>Giá: <strong>{formatMoney(item.Price)} VND</strong></span>
+                                    <span style={{ marginRight: 30 }}>Giảm giá: <strong>{formatMoney(item.Discount || 0)} VND</strong></span>
+                                    <span style={{ marginRight: 30 }}>Số lượng: <strong>{formatMoney(item.StockQuantity || 0)} </strong></span>
+                                    <span style={{ marginRight: 30 }}>Đã bán: <strong>{formatMoney(item.SoldQuantity || 0)} </strong></span>
+
                                 </div>}
                             />
                             {item.content}

@@ -3,6 +3,7 @@ import styles from "./Search.module.css";
 import { useNavigate, useRoutes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setFilterSearchRedux } from "../../redux/filterSearch";
+import { iconSearch } from "../../components/icon/Icon";
 
 function Search() {
   const [text, setText] = useState("");
@@ -29,12 +30,9 @@ function Search() {
   return (
     <div className={styles.fhs_search_header}>
       <input placeholder="Tìm Kiếm Sản Phẩm..." onChange={(e) => setText(e.target.value)} value={text}  onKeyDown={handleKeyDown}/>
-      <button className={`${styles.fhs_button_search_header} ${styles.fhs_mouse_point}`} onClick={handleSearchProduct}>
-        <img
-          src="https://cdn0.fahasa.com/skin/frontend/ma_vanese/fahasa/images/ico_search_white.svg"
-          alt=""
-        />
-      </button>
+      <span className={`${styles.fhs_button_search_header} ${styles.fhs_mouse_point}`} onClick={handleSearchProduct}>
+       {iconSearch}
+      </span>
     </div>
   );
 }

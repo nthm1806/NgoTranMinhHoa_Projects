@@ -1,0 +1,184 @@
+.loyalty-history-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f6f6f6;
+}
+
+.loyalty-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-history,
+.upgrade-history {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-history li,
+.upgrade-history li {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.loyalty-history-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f6f6f6;
+}
+
+.loyalty-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* Ngăn chặn nội dung bị tràn */
+}
+
+/* Danh sách lịch sử */
+.order-history,
+.upgrade-history {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.order-history li,
+.upgrade-history li {
+    background: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    /* Kích thước chữ nhỏ hơn để tránh tràn */
+    white-space: nowrap;
+    /* Ngăn chữ bị cắt */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Hiển thị dấu "..." nếu quá dài */
+}
+
+/* Căn chỉnh biểu đồ */
+.recharts-wrapper {
+    max-width: 100%;
+}
+
+/* Điều chỉnh trục X cho ngày hiển thị đầy đủ */
+.recharts-cartesian-axis-tick {
+    font-size: 12px !important;
+    transform: rotate(-15deg);
+    /* Nghiêng nhãn trục X để dễ đọc */
+    text-anchor: end;
+    /* Căn phải */
+}
+
+/* Điều chỉnh icon trong trục Y */
+.tier-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+/* Hiển thị icon gần nhãn trục Y */
+.recharts-yAxis .recharts-cartesian-axis-tick text {
+    display: flex;
+    align-items: center;
+}
+
+.loyaltyHistoryContainer {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f6f6f6;
+}
+
+.loyaltyCard {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* Ngăn chặn nội dung bị tràn */
+}
+
+/* Danh sách lịch sử */
+.orderHistory,
+.upgradeHistory {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.orderHistory li,
+.upgradeHistory li {
+    background: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    white-space: nowrap;
+    /* Ngăn chữ bị cắt */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Hiển thị dấu "..." nếu quá dài */
+}
+
+/* Căn chỉnh biểu đồ */
+.rechartsWrapper {
+    max-width: 100%;
+}
+
+/* Điều chỉnh trục X cho ngày hiển thị đầy đủ */
+.rechartsCartesianAxisTick {
+    font-size: 12px !important;
+    transform: rotate(-15deg);
+    /* Nghiêng nhãn trục X để dễ đọc */
+    text-anchor: end;
+    /* Căn phải */
+}
+
+/* Điều chỉnh icon trong trục Y */
+.tierIcon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    transform: translateX(-40px) translateY(-45px);
+}
+
+/* Hiển thị số tiền ngay bên dưới icon */
+.yAxisText {
+    transform: translateX(-42px) translateY(5px);
+    fill: #666;
+    font-size: 14px;
+    text-anchor: middle;
+}
+
+.loyalty-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f6f6f6;
+}
+
+.loyalty-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loyalty-info {
+    text-align: left;
+    padding: 15px;
+}
