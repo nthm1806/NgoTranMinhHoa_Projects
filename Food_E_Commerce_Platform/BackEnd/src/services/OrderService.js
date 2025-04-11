@@ -3,6 +3,7 @@ const Voucher = require('./VoucherService')
 const Cart = require('./CartService')
 const Product = require('../models/ProductModel');
 const Notification = require('../models/NotificationstModel')
+const TransactionHistory = require('../models/TransactionHistoryModel')
 
 const OrderServices = {
     getAllOrder: async ()=>{
@@ -13,7 +14,10 @@ const OrderServices = {
     },
     addOrder:async (address,OrderInfor,voucher,totalPayment,cusID)=>{
         const OrderID = await Orders.addOrder(address,cusID,totalPayment,OrderInfor,voucher);
-        await Cart.removeCartDetail(OrderInfor)
+        if(OrderInfor[0].CartDetailID){
+            await Cart.removeCartDetail(OrderInfor)
+        }
+        await Product.decreament(OrderInfor);
         if(voucher){
             await Voucher.removeVoucherDetail(cusID,voucher);
         }
@@ -21,11 +25,14 @@ const OrderServices = {
     },
     addOrderPrepay:async (address,OrderInfor,voucher,totalPayment,cusID)=>{
         const result = await Orders.addOrderPrepay(address,cusID,totalPayment,OrderInfor,voucher);
-        await Cart.removeCartDetail(OrderInfor)
+        if(OrderInfor[0].CartDetailID){
+            await Cart.removeCartDetail(OrderInfor)
+        }
         if(voucher){
             await Voucher.removeVoucherDetail(cusID,voucher);
         }
         await Notification.addNotifications(cusID,result.OrderID);
+        
         return result.OrderDetailID;
     },
     getOrderDetailByCusID: async (cusID)=>{
@@ -36,6 +43,7 @@ const OrderServices = {
                 orderID : item.OrderID,
                 orderDetailID:item.OrderDetailID,
                 productID : item.ProductID,
+                stockQuantity:query[0].StockQuantity,
                 productCategory:query[0].Category,
                 status:item.Status,
                 productImg: query[0].ProductImg,
@@ -57,7 +65,6 @@ const OrderServices = {
     getOrderDetailByOrderID: async(OrderID)=>{
         const OderDetail = await Orders.getOrderDetailByOrderID(OrderID);
         const result  = await Promise.all(OderDetail.map(async(item)=>{
-            console.log(item)
             const query = await Product.getProductByProID(item.ProductID);
             const tmp = {
                 orderID : item.OrderID,
@@ -80,8 +87,9 @@ const OrderServices = {
         }))   
         return result;  
     },
-    changeStatusShip: async(OrderID)=>{
-        Orders.changeStatusShip(OrderID);
+    changeStatusShip: async(OrderDetailID)=>{
+        
+        Orders.changeStatusShip(OrderDetailID);
     }
 }
 module.exports = OrderServices;

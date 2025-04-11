@@ -35,11 +35,8 @@ const SubItemController = {
             const updated = await SubItemService.incrementViewCount(id);
 
             if (!updated) {
-                console.log(`Không tìm thấy câu hỏi có ID: ${id}`);
                 return res.status(404).json({ error: "SubItem không tồn tại" });
             }
-
-            console.log(` View count của câu hỏi ID ${id} đã tăng lên!`);
             res.status(200).json({ message: "View count updated" });
         } catch (error) {
             console.error("Error updating view count:", error.message);

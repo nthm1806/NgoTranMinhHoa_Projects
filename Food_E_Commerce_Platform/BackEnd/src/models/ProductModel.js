@@ -1,5 +1,10 @@
 const pool = require("../config/Database");
 const Products = {
+  decreament: async(OrderInfor)=>{
+    OrderInfor.map((item)=>{
+      pool.query('update Product   p set StockQuantity = p.StockQuantity - ?  where productID = ?' ,[item.Quantity,item.productID])
+    })
+  },
   getProductByShopID:async(ShopID)=>{
     const result = await pool.query('select * from Product where ShopID = ? order by Popularity limit 5',[ShopID]);
     return result[0];
@@ -228,6 +233,55 @@ const Products = {
     );
 
     return result;
+  },
+
+  getProductCategory: async (ProductID) => {
+    const result = await pool.query(
+      "SELECT Category Product WHERE ProductID = ?",
+      [ProductID]
+    );
+
+    return result;
+  },
+
+  updateProductStockQuantity: async (ProductID, Quantity) => {
+    try {
+      const result = await pool.query(
+        "UPDATE Product SET SoldQuantity = SoldQuantity + ? WHERE ProductID = ?;",
+        [Quantity, ProductID]
+      );
+  
+      if (result.affectedRows === 0) {
+        throw new Error("Product not found or update failed for SoldQuantity");
+      }
+  
+      const result2 = await pool.query(
+        "UPDATE Product SET StockQuantity = StockQuantity - ? WHERE ProductID = ?;",
+        [Quantity, ProductID]
+      );
+  
+      if (result2.affectedRows === 0) {
+        throw new Error("Product not found or update failed for StockQuantity");
+      }
+  
+      return { success: true }; // Cả hai câu truy vấn thành công
+    } catch (error) {
+      console.error(error);
+      return { success: false, error: error.message }; // Xử lý lỗi nếu có
+    }
+  },
+  
+
+  getProductShopID: async (ProductID) => {
+    const result = await pool.query(
+      "SELECT ShopID FROM Product WHERE ProductID = ?",
+      [ProductID]
+    );
+    if (result.length > 0) {
+      return result[0];  // Trả về giá trị ShopID
+    } else {
+      return null;  // Trả về null nếu không có kết quả
+    }
   },
 
   getProductDetail: async (ProductID) => {
@@ -460,6 +514,60 @@ const Products = {
     }
   
     const result = await pool.query(query, params);
+    return result;
+  },
+
+  getProductCheapestBehaviorShop: async (shopID) => {
+    const result = await pool.query(
+      `SELECT * FROM Product
+       WHERE ShopID = ?
+       ORDER BY Price ASC
+       LIMIT 10`,
+      [shopID]
+    );
+    return result[0];
+  },
+
+  getProductCustomerBehaviorShopReal: async (shopID, category) => {
+    const result = await pool.query(
+      `SELECT * FROM Product
+       WHERE ShopID = ? and Category = ?
+       ORDER BY SoldQuantity DESC
+       LIMIT 10`,
+      [shopID, category]
+    );
+    return result;
+  },
+
+  getProductCustomerBehaviorShop: async (shopID) => {
+    const result = await pool.query(
+      `SELECT * FROM Product
+       WHERE ShopID = ?
+       ORDER BY SoldQuantity DESC
+       LIMIT 15`,
+      [shopID]
+    );
+    return result;
+  },
+
+  getBehaviorCustomerProducts: async (Category) => {
+    const result = await pool.query(
+      `SELECT * FROM Product
+       WHERE Category = ?
+       ORDER BY SoldQuantity DESC
+       LIMIT 10`,
+      [Category]
+    );
+    return result;
+  },
+
+  getProductID : async (img) => {
+    const result = await pool.query(
+      `SELECT ProductID
+       FROM Product
+       WHERE ProductImg = ?`,
+      [img]
+    );
     return result;
   },
 };

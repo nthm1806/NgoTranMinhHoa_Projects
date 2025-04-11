@@ -1,6 +1,11 @@
 const VoucherModel = require('../models/VoucherModel');
 
 const Voucher = {
+
+    getAllVouchers: async () => {
+        return await VoucherModel.getAllVouchers();
+    },
+
     getVoucherAllByCusID: async(cusID,totalPrice)=>{
         const result = await VoucherModel.getVoucherAllBycusID(cusID,totalPrice);
         return result

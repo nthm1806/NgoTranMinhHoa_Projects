@@ -1,6 +1,5 @@
 const SupportService = require('../services/supportService');
 
-
 const SupportController = {
     createRequest: async (req, res) => {
         try {
@@ -32,7 +31,6 @@ const SupportController = {
         }
     },
 
-    // API lấy chi tiết một yêu cầu hỗ trợ theo ID
     getRequestById: async (req, res) => {
         try {
             const { id } = req.params;
@@ -48,6 +46,7 @@ const SupportController = {
             res.status(500).json({ error: "Lỗi server!" });
         }
     },
+
     getRequestCategories: async (req, res) => {
         try {
             const categories = await SupportService.getRequestCategories();
@@ -57,13 +56,33 @@ const SupportController = {
             res.status(500).json({ error: "Lỗi server!" });
         }
     },
-    getCategories: async (req, res) => {
+
+    updateRequest: async (req, res) => {
         try {
-            const [categories] = await pool.query("SELECT * FROM RequestCategories");
-            res.status(200).json(categories);
+            const { id } = req.params;
+            const { subject, details } = req.body;
+
+            if (!subject || !details) {
+                return res.status(400).json({ error: "Vui lòng nhập đầy đủ thông tin." });
+            }
+
+            await SupportService.updateRequest(id, subject, details);
+            res.status(200).json({ message: "Cập nhật yêu cầu thành công!" });
         } catch (error) {
-            console.error("Lỗi khi lấy danh sách categories:", error);
-            res.status(500).json({ error: "Lỗi server!" });
+            console.error("Lỗi khi cập nhật yêu cầu:", error);
+            res.status(500).json({ error: "Lỗi khi cập nhật yêu cầu." });
+        }
+    },
+
+    deleteRequest: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            await SupportService.deleteRequest(id);
+            res.status(200).json({ message: "Xóa yêu cầu thành công!" });
+        } catch (error) {
+            console.error("Lỗi khi xóa yêu cầu:", error);
+            res.status(500).json({ error: "Lỗi khi xóa yêu cầu." });
         }
     }
 };

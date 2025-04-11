@@ -1,4 +1,5 @@
 const Products = require('../models/ProductModel');
+const CustomerBehaviorModel = require('../models/CustomerBehaviorModel');
 const productServices = {
     getAllProductsNew: async (option, type)=>{
         const result = await Products.getAllProductsNew(option, type);
@@ -77,7 +78,76 @@ const productServices = {
     getProductByShop : async (ShopID, keyword,type)=>{
         const result = await Products.getProductByShop(ShopID, keyword,type);
         return result;
-    }
+    },
+
+    getProductBehaviorShop: async (customerID, shopID) => {
+        let CategoryByShopCustomerBehavior = await CustomerBehaviorModel.getCategoryByShop(customerID, shopID);
+        if (CategoryByShopCustomerBehavior.length === 0) {
+            const result = await Products.getProductCheapestBehaviorShop(shopID);
+            return result;
+        }
+            const result = await Promise.all(
+            CategoryByShopCustomerBehavior.map(async (item) => {
+                const productBehavior = await Products.getProductCustomerBehaviorShopReal(shopID, item.category);
+    
+                return productBehavior[0].map((product) => ({
+                    ProductID: product.ProductID,
+                    ProductImg: product.ProductImg,
+                    ProductName: product.ProductName,
+                    Category: product.Category,
+                    SoldQuantity: product.StockQuantity,
+                    Weight: product.Weight,
+                    ShopID: product.ShopID,
+                    Price: product.Price,
+                }));
+            })
+        );    
+        return result.flat();
+    },
+
+    getFollowedShopsProducts: async (customerID, shopID) => {
+        let CustomerFollowedShops = await CustomerBehaviorModel.getCustomerFollowedShops(customerID);
+
+            const result = await Promise.all(
+                CustomerFollowedShops.map(async (item) => {
+                const productBehavior = await Products.getProductCustomerBehaviorShop(item.shop_ID);
+    
+                return productBehavior[0].map((product) => ({
+                    ProductID: product.ProductID,
+                    ProductImg: product.ProductImg,
+                    ProductName: product.ProductName,
+                    Category: product.Category,
+                    SoldQuantity: product.StockQuantity,
+                    Weight: product.Weight,
+                    ShopID: product.ShopID,
+                    Price: product.Price,
+                }));
+            })
+        );    
+        return result.flat();
+    },
+
+    getBehaviorCustomerProducts: async (customerID) => {
+        let BehaviorCustomerProducts = await CustomerBehaviorModel.getBehaviorCustomerProducts(customerID);
+
+            const result = await Promise.all(
+                BehaviorCustomerProducts.map(async (item) => {
+                const productCustomerBehavior = await Products.getBehaviorCustomerProducts(item.category);
+    
+                return productCustomerBehavior[0].map((product) => ({
+                    ProductID: product.ProductID,
+                    ProductImg: product.ProductImg,
+                    ProductName: product.ProductName,
+                    Category: product.Category,
+                    SoldQuantity: product.StockQuantity,
+                    Weight: product.Weight,
+                    ShopID: product.ShopID,
+                    Price: product.Price,
+                }));
+            })
+        );    
+        return result.flat();
+    },
 
 }
 module.exports = productServices;

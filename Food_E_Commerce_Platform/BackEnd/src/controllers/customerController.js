@@ -20,8 +20,10 @@ const CustomerControllers = {
         const customer = {
           ...result,
           Avatar: result.Avatar
-            ? `${req.protocol}://${req.get("host")}/uploads/${result.Avatar}`
-            : null,
+          ? result.Avatar.startsWith("http") // Kiểm tra nếu Avatar đã là URL đầy đủ
+            ? result.Avatar
+            : `${req.protocol}://${req.get("host")}/uploads/${result.Avatar}`
+          : null,        
         };
 
         res.status(200).json(customer);
@@ -36,6 +38,7 @@ const CustomerControllers = {
   updateCustomerById: async (req, res) => {
     try {
       const { CustomerID } = req.params;
+      const filePath = req.file.path;
       const customerData = req.body;
       const { oldPassword, newPassword } = req.body;
 
@@ -62,7 +65,7 @@ const CustomerControllers = {
 
       // Nếu có avatar, cập nhật avatar mới
       if (req.file) {
-        customerData.Avatar = req.file.filename;
+        customerData.Avatar = req.file.path;
       }
 
       const result = await CustomerServices.updateCustomerById(CustomerID, customerData);

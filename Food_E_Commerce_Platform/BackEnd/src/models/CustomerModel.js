@@ -45,16 +45,37 @@ const Customers = {
             PhoneNumber: customerData.PhoneNumber || oldCustomer.PhoneNumber,
             Gender: customerData.Gender || oldCustomer.Gender,
             password: customerData.password || oldCustomer.password,
-            Avatar: customerData.Avatar || oldCustomer.Avatar
+            Avatar: customerData.Avatar || oldCustomer.Avatar,
+            xu: customerData.xu !== undefined ? customerData.xu : oldCustomer.xu 
         };
     
         const result = await pool.query(
-            'UPDATE Customer SET FirstName = ?, LastName = ?, DateOfBirth = ?, Email = ?, PhoneNumber = ?, Gender = ?, password = ?, Avatar = ? WHERE CustomerID = ?',
-            [updatedCustomer.FirstName, updatedCustomer.LastName, updatedCustomer.DateOfBirth, updatedCustomer.Email, updatedCustomer.PhoneNumber, updatedCustomer.Gender, updatedCustomer.password, updatedCustomer.Avatar, CustomerID]
+            'UPDATE Customer SET FirstName = ?, LastName = ?, DateOfBirth = ?, Email = ?, PhoneNumber = ?, Gender = ?, password = ?, Avatar = ?, xu = ? WHERE CustomerID = ?',
+            [updatedCustomer.FirstName, updatedCustomer.LastName, updatedCustomer.DateOfBirth, updatedCustomer.Email, updatedCustomer.PhoneNumber, updatedCustomer.Gender, updatedCustomer.password, updatedCustomer.Avatar, updatedCustomer.xu, CustomerID]
         );
     
         return result;
-    }
+    },
+
+    addCoinCustomer: async (inforFullUser, item) => {
+                const addCoin = Math.ceil((item.bill_amount / 1000) * 0.1);
+    
+        // Cập nhật số xu của khách hàng
+        const result = await pool.query(
+            'UPDATE Customer SET xu = xu + ? WHERE CustomerID = ?',
+            [addCoin, item.customer_id]
+        );
+    
+        // Kiểm tra kết quả
+        if (result.affectedRows > 0) {
+            // Trả về thông tin đã cập nhật
+            return { success: true, message: 'Coins updated successfully!' };
+        } else {
+            // Trường hợp không tìm thấy CustomerID
+            return { success: false, message: 'Customer not found!' };
+        }
+    },
+    
 };
 
 module.exports = Customers;

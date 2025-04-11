@@ -10,7 +10,9 @@ const review ={
             await pool.query('insert into ShipperReview (CustomerID,ShipperID,Rate,Review) values ( ?,? ,?,?)',[cusID,categoryID,form.rating,form.reviewText])
         }
     },
-
+    addReviewProduct:async (formReview,cusID,categoryID)=>{
+        
+    },
     getReview: async(form)=>{
         if(form.category === 'product'){
             return await pool.query("SELECT pr.*,c.Avatar as avatarViewer, concat(c.FirstName, ' ' , c.LastName) AS reviewer FROM ProductReview pr JOIN Customer c ON c.CustomerID = pr.CustomerID WHERE pr.ProductID = ? ORDER BY pr.ReviewProductID DESC",[form.ProductID])

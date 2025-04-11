@@ -7,7 +7,6 @@ exports.addCustomer = async (data) => {
       "SELECT * FROM Customer WHERE CustomerID = ?",
       [data.CustomerID]
     );
-    console.log(data.CustomerID);
 
     if (rows.length === 0) {
       // Thêm khách hàng mới vào database
@@ -31,7 +30,6 @@ exports.addCustomer = async (data) => {
             data.UpdatedAt
         ]
     );
-          console.log(18);
     }
 
     return { success: true };

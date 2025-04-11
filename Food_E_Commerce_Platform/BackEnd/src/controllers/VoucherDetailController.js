@@ -19,7 +19,6 @@ const VoucherDetailController = {
     try {
       const customerID = req.query.customerID;
       const deleteVoucherID = req.query.deleteVoucherID;
-      console.log("CusIDCONtroler + voucher: ", customerID, deleteVoucherID);
       const result = await VoucherDetailService.deleteVoucherID(
         customerID,
         deleteVoucherID
@@ -31,7 +30,6 @@ const VoucherDetailController = {
   },
 
   getListVoucherByCustomerID: async (req, res) => {
-    console.log(123);
     try {
       const customerID = req.query.customerID;
       const result = await VoucherDetailService.getListVoucherByCustomerID(

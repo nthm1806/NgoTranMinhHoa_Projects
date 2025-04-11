@@ -30,7 +30,6 @@ export const sendOTP = async (email) => {
     };
 
     await transporter.sendMail(mailOptions);
-    console.log(`✅ OTP sent to ${email}`);
 };
 
 //xác minh OTP

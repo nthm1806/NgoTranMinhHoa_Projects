@@ -17,10 +17,7 @@ const SupportModel = {
     getUserRequests: async (customer_id) => {
         try {
             const [rows] = await pool.query(
-                `SELECT sr.*, rc.name AS category_name 
-                 FROM SupportRequests sr 
-                 JOIN RequestCategories rc ON sr.category = rc.id 
-                 WHERE sr.customer_id = ? ORDER BY sr.created_at DESC`,
+                'SELECT * FROM SupportRequests WHERE customer_id = ? ORDER BY created_at DESC',
                 [customer_id]
             );
             return rows;
@@ -30,7 +27,6 @@ const SupportModel = {
         }
     },
 
-    // Thêm truy vấn lấy yêu cầu theo ID
     getRequestById: async (id) => {
         const [rows] = await pool.query(
             'SELECT * FROM SupportRequests WHERE id = ?',
@@ -38,9 +34,46 @@ const SupportModel = {
         );
         return rows.length ? rows[0] : null;
     },
+
     getRequestCategories: async () => {
         const [rows] = await pool.query("SELECT id, name FROM RequestCategories");
         return rows;
+    },
+
+    updateRequest: async (id, subject, details) => {
+        try {
+            const [result] = await pool.query(
+                "UPDATE SupportRequests SET subject = ?, details = ? WHERE id = ? AND status = 'pending'",
+                [subject, details, id]
+            );
+
+            if (result.affectedRows === 0) {
+                throw new Error("Không thể cập nhật yêu cầu. Chỉ có thể cập nhật khi trạng thái là 'Đang chờ xử lý'.");
+            }
+
+            return { success: true };
+        } catch (error) {
+            console.error("❌ Lỗi khi cập nhật yêu cầu:", error);
+            throw new Error("Lỗi khi cập nhật yêu cầu.");
+        }
+    },
+
+    deleteRequest: async (id) => {
+        try {
+            const [result] = await pool.query(
+                "DELETE FROM SupportRequests WHERE id = ? AND status = 'pending'",
+                [id]
+            );
+
+            if (result.affectedRows === 0) {
+                throw new Error("Không thể xóa yêu cầu. Chỉ có thể xóa khi trạng thái là 'Đang chờ xử lý'.");
+            }
+
+            return { success: true };
+        } catch (error) {
+            console.error("❌ Lỗi khi xóa yêu cầu:", error);
+            throw new Error("Lỗi khi xóa yêu cầu.");
+        }
     }
 };
 

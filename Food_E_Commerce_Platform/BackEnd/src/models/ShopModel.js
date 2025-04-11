@@ -1,6 +1,15 @@
 const pool = require("../config/Database");
 
 const Shop = {
+  getShopListByID:async (shopMain,listShop)=>{
+    const result11 = await pool.query('select * from Shop where ShopID  = ?',[shopMain.ShopID]);
+    const result = await  Promise.all(listShop.map(async item => {
+      const [rows1] = await pool.execute('SELECT * FROM Shop where ShopID = ?', [item]);
+      return rows1[0]
+  }));
+    const result2 = [...result11[0],...result]
+    return result2;
+  },
   getInforShop: async (req, res) => {
     
     try {

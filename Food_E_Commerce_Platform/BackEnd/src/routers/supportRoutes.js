@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router();
 const SupportController = require('../controllers/supportController');
 
-router.get('/request/:id', SupportController.getRequestById); // API lấy chi tiết yêu cầu hỗ trợ
-router.post('/request', SupportController.createRequest);
-router.get('/requests/:customer_id', SupportController.getUserRequests);
-router.get('/categories', SupportController.getRequestCategories);
-router.post('/request', SupportController.createRequest);
-router.get('/requests/:customer_id', SupportController.getUserRequests);
+// Các route cho yêu cầu hỗ trợ
+router.post('/request', SupportController.createRequest); // Tạo yêu cầu hỗ trợ
+router.get('/request/:id', SupportController.getRequestById); // Lấy chi tiết yêu cầu theo ID
+router.get('/requests/:customer_id', SupportController.getUserRequests); // Lấy lịch sử yêu cầu của người dùng
+router.get('/categories', SupportController.getRequestCategories); // Lấy danh sách loại yêu cầu
+router.put("/request/:id", SupportController.updateRequest); // API cập nhật yêu cầu
+router.delete("/request/:id", SupportController.deleteRequest); // API xóa yêu cầu
 
 module.exports = router;

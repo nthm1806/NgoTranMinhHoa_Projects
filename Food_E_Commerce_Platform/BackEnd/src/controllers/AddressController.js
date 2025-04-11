@@ -12,7 +12,6 @@ const AddressController = {
     },
     addAddress: async (req, res) => {
         try {
-            console.log("Dữ liệu nhận từ frontend:", req.body);
     
             const { customerID, houseAddress, area } = req.body;
     
@@ -21,7 +20,6 @@ const AddressController = {
             }
     
             const result = await AddressService.addAddress(customerID, houseAddress, area);
-            console.log("Dữ liệu lưu vào DB:", result);
     
             return res.json({ success: true, data: result });
         } catch (error) {
@@ -47,7 +45,6 @@ const AddressController = {
 
     removeAddress: async (req, res) => {
         try {
-            console.log("Nhận request xóa:", req.query);
             const { addressId, customerId } = req.query;
             const result = await AddressService.removeAddress(addressId, customerId);
             res.json(result);

@@ -12,11 +12,9 @@ const AddressModel = {
                 "INSERT INTO address (CustomerID, HouseAddress, Area) VALUES (?, ?, ?)",
                 [customerID, houseAddress, area]
             );
-    
             if (!result || result.affectedRows === 0) {
                 throw new Error("Không thể chèn dữ liệu vào bảng address");
             }
-    
             return { addressID: result.insertId };
         } catch (error) {
             console.error("Lỗi khi thực hiện query thêm địa chỉ:", error);

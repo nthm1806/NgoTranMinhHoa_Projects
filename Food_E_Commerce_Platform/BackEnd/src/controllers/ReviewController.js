@@ -12,6 +12,14 @@ const review={
             console.log(error)
         }
     },
+    addReviewProduct: async(req,res)=>{
+        try {
+            const {formReview,cusID,categoryID} = req.body;
+            await Review.addReviewProduct(formReview,cusID,categoryID)
+        } catch (error) {
+            console.log(error)
+        }
+    },
     getReview: async(req,res)=>{
         try {
             const rs =  await Review.getReview(req.body.form);

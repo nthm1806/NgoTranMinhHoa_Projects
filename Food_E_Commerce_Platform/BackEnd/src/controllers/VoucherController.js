@@ -1,6 +1,17 @@
 const VoucherService = require('../services/VoucherService');
 
 const Voucher = {
+
+    getAllVouchers: async (req, res) => {
+        try {
+            const result = await VoucherService.getAllVouchers();
+            res.status(200).json(result);
+        } catch (error) {
+            console.error("Lỗi khi lấy danh sách voucher:", error);
+            res.status(500).json({ message: "Lỗi server" });
+        }
+    },
+
     getVoucherAllByCusID: async(req,res)=>{
         try {
             const cusID = req.body.cusID;
